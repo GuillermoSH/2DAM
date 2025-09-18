@@ -1,16 +1,14 @@
 <?php
-    $num = 12;
-    $sum = 0;
+    $word = "reconocer";
+    $inverted = "";
 
-    for ($i = 1; $i < $num; $i++) {
-        if ($num % $i == 0) {
-            $sum += $i;
-        }
+    for ($i = strlen($word) - 1; $i >= 0; $i--) {
+        $inverted = $inverted . substr($word, $i, 1);
     }
 
-    if ($sum == $num) {
-        echo "$num es PERFECTO.";
+    if ($word === $inverted) {
+        echo "'$word' es palíndroma.";
     } else {
-        echo "$num no es perfecto.";
+        echo "'$word' no es palíndroma.";
     }
 ?>

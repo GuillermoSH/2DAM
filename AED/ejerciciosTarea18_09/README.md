@@ -5,7 +5,7 @@
 ### Variables y Condicionales
 
 1. **Mayor de dos números**
-```
+```php
 <?php
     $num1 = 10;
     $num2 = 20;
@@ -25,7 +25,7 @@
 ```
 
 2. **Edad permitida**  
-```
+```php
 <?php
     $edad = 8;
 
@@ -40,7 +40,7 @@
 ```
 
 3. **Positivo, negativo o cero**  
-```
+```php
 <?php
     $num1 = 10;
 
@@ -59,7 +59,7 @@
 ```
 
 4. **Nota final**  
-```
+```php
 <?php
     $nota = 7;
 
@@ -86,7 +86,7 @@
 ### 2️⃣ Bucles (for, while, foreach)
 
 5. **Contar del 1 al 100**  
-```
+```php
 <?php
     for ($i = 1; $i <= 100; $i++) {
         echo $i . "\n";
@@ -95,7 +95,7 @@
 ``` 
 
 6. **Suma acumulada**  
-```
+```php
 <?php
     $i = 1;
     $sum = $i;
@@ -111,7 +111,7 @@
 ```
 
 7. **Tabla de multiplicar**  
-```
+```php
 <?php
     $input = 4;
     
@@ -122,7 +122,7 @@
 ``` 
 
 8. **Números pares**  
-```
+```php
 <?php
     $i = 1;
 
@@ -136,7 +136,7 @@
 ``` 
 
 9. **Cuenta atrás**  
-```
+```php
 <?php
     $i = 10;
 
@@ -152,7 +152,7 @@
 ```  
 
 10. **Factorial**  
-```
+```php
 <?php
     $input = 5;
 
@@ -171,7 +171,7 @@
 ### 3️⃣ Combinando Condicionales y Bucles
 
 11. **Números primos**  
-```
+```php
 <?php
     for ($num = 2; $num <= 50; $num++) {
         $isPrime = true;
@@ -190,7 +190,7 @@
 ```
 
 12. **Fibonacci**  
-```
+```php
 <?php
     $fibonacci = [0, 1];
 
@@ -203,7 +203,7 @@
 ```
 
 13. **Múltiplos de un número**  
-```
+```php
 <?php
     $input = 7;
 
@@ -214,7 +214,7 @@
 ```
 
 14. **Suma de pares e impares**  
-```
+```php
 <?php
     $oddsSum = 1;
     $evensSum = 2;
@@ -228,7 +228,7 @@
 ```  
 
 15. **Adivinar número**  
-```
+```php
 <?php
 session_start();
 
@@ -278,7 +278,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 ### 4️⃣ Construcción de Algorítmicos
 
 16. **Número perfecto**  
-```
+```php
 <?php
     $num = 12;
     $sum = 0;
@@ -298,10 +298,38 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 ``` 
 
 17. **Invertir número**  
-    Escribe un algoritmo que invierta los dígitos de un número (ejemplo: `123 → 321`).  
+```php
+<?php
+    $num = 12;
+    $inverted = 0;
+
+    while ($num > 0) {
+        $digit = (int) ($num % 10);
+        $inverted = $inverted * 10 + $digit;
+        $num = (int) ($num / 10);
+    }
+
+    echo "Número invertido: $inverted";
+?>
+```
 
 18. **Palíndromo**  
-    Comprueba si una palabra almacenada en una variable es palíndroma.  
+```php
+<?php
+    $word = "reconocer";
+    $inverted = "";
+
+    for ($i = strlen($word) - 1; $i >= 0; $i--) {
+        $inverted = $inverted . substr($word, $i, 1);
+    }
+
+    if ($word === $inverted) {
+        echo "'$word' es palíndroma.";
+    } else {
+        echo "'$word' no es palíndroma.";
+    }
+?>
+```
 
 19. **Máximo común divisor (MCD)**  
     Escribe un algoritmo que calcule el MCD de dos números.  
