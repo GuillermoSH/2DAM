@@ -1,14 +1,7 @@
 <?php
-    $word = "reconocer";
-    $inverted = "";
+    $n = 5;
 
-    for ($i = strlen($word) - 1; $i >= 0; $i--) {
-        $inverted = $inverted . substr($word, $i, 1);
-    }
-
-    if ($word === $inverted) {
-        echo "'$word' es palíndroma.";
-    } else {
-        echo "'$word' no es palíndroma.";
+    for ($i = 1; $i <= $n; $i++) {
+        echo str_repeat("*", $i) . "</br>";
     }
 ?>

@@ -332,21 +332,28 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 ```
 
 19. **Máximo común divisor (MCD)**  
-    Escribe un algoritmo que calcule el MCD de dos números.  
+```
+<?php
+    $num1 = 12;
+    $num2 = 28;
+
+    while ($num2 != 0) {
+        $aux = $num1 % $num2;
+        $num1 = $num2;
+        $num2 = $aux;
+    }
+
+    echo "El MCD es: $num1";
+?>
+```  
 
 20. **Triángulo de asteriscos**  
-    Muestra en pantalla un triángulo de altura `n` usando `*`.  
-    Ejemplo con `n = 5`:  
-    ```
-    *
-    **
-    ***
-    ****
-    *****
-    ```
+```
+<?php
+    $n = 5;
 
----
-
-## Licencia 📄
-
-Este proyecto está bajo la Licencia (Apache 2.0) - mira el archivo [LICENSE.md]([../../../LICENSE.md](https://github.com/jpexposito/code-learn-practice/blob/main/LICENSE)) para detalles.
+    for ($i = 1; $i <= $n; $i++) {
+        echo str_repeat("*", $i) . "</br>";
+    }
+?>
+```
