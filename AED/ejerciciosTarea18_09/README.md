@@ -59,57 +59,243 @@
 ```
 
 4. **Nota final**  
-   Pide la nota de un alumno y muestra:  
-   - `"Suspenso"` (< 5), `"Aprobado"` (5–6), `"Notable"` (7–8), `"Sobresaliente"` (9–10).  
+```
+<?php
+    $nota = 7;
+
+    $messageStr = "Sobresaliente";
+
+    if ($nota > 6 && $nota < 9) {
+        $messageStr = "Notable";
+    }
+
+    if ($nota > 4 && $nota <= 6) {
+        $messageStr = "Aprobado";
+    }
+
+    if ($nota < 5) {
+        $messageStr = "Suspenso";
+    }
+
+    echo $messageStr;
+?>
+```  
 
 ---
 
 ### 2️⃣ Bucles (for, while, foreach)
 
 5. **Contar del 1 al 100**  
-   Muestra los números del 1 al 100 en pantalla.  
+```
+<?php
+    for ($i = 1; $i <= 100; $i++) {
+        echo $i . "\n";
+    }
+?>
+``` 
 
 6. **Suma acumulada**  
-   Calcula la suma de los números del 1 al 50 usando un bucle.  
+```
+<?php
+    $i = 1;
+    $sum = $i;
+
+    while ($i <= 50) {
+        $sum += $i;
+        
+        $i++;
+    }
+    
+    echo $sum . "\n";
+?>
+```
 
 7. **Tabla de multiplicar**  
-   Pide un número y genera su tabla de multiplicar del 1 al 10.  
+```
+<?php
+    $input = 4;
+    
+    for ($i = 1; $i <= 10; $i++) {
+        echo $input * $i . "\n";
+    }
+?>
+``` 
 
 8. **Números pares**  
-   Muestra todos los números pares entre 1 y 50.  
+```
+<?php
+    $i = 1;
+
+    while ($i <= 50) {
+        if ($i % 2 == 0) {
+            echo $i . "\n";
+        }
+        $i++;
+    }
+?>
+``` 
 
 9. **Cuenta atrás**  
-   Haz un bucle que cuente de 10 a 1 y luego muestre `"¡Fin!"`.  
+```
+<?php
+    $i = 10;
+
+    do {
+        if ($i == 0) {
+            echo "Fin!";
+        } else {
+            echo $i . "\n";
+        }
+        $i--;
+    } while ($i >= 0);
+?>
+```  
 
 10. **Factorial**  
-    Calcula el factorial de un número introducido (ejemplo: `5! = 120`).  
+```
+<?php
+    $input = 5;
+
+    $factorial = 1;
+
+    for ($i = 1; $i <= $input; $i++) {
+        $factorial *= $i;
+    }
+
+    echo "$input! = $factorial";
+?>
+```
 
 ---
 
 ### 3️⃣ Combinando Condicionales y Bucles
 
 11. **Números primos**  
-    Escribe un algoritmo que muestre los números primos entre 1 y 50.  
+```
+<?php
+    for ($num = 2; $num <= 50; $num++) {
+        $isPrime = true;
+
+        for ($j = 2; $j <= sqrt($num); $j++) {
+            if ($num % $j == 0) {
+                $isPrime = false;
+                break;
+            }
+        }
+        if ($isPrime) {
+            echo $num . "\n";
+        }
+    }
+?>
+```
 
 12. **Fibonacci**  
-    Genera los primeros 20 términos de la secuencia de Fibonacci.  
+```
+<?php
+    $fibonacci = [0, 1];
+
+    for ($num = 2; $num < 20; $num++) {
+        $fibonacci[$num] = $fibonacci[$num - 1] + $fibonacci[$num - 2];
+    }
+    
+    echo implode(", ", $fibonacci);
+?>
+```
 
 13. **Múltiplos de un número**  
-    Pide un número `n` y muestra sus múltiplos hasta 100.  
+```
+<?php
+    $input = 7;
+
+    for ($num = $input; $num <= 100; $num += $input) {
+        echo $num . "\n";
+    }
+?>
+```
 
 14. **Suma de pares e impares**  
-    Calcula la suma de los números pares e impares entre 1 y 100 por separado.  
+```
+<?php
+    $oddsSum = 1;
+    $evensSum = 2;
+
+    for ($i = 3; $i <= 100; $i++) {
+        ($i % 2 == 0) ? $evensSum += $i : $oddsSum += $i;
+    }
+
+    echo "La suma de pares es '$evensSum' y la de impares es '$oddsSum'.";
+?>
+```  
 
 15. **Adivinar número**  
-    Genera un número aleatorio entre 1 y 20.  
-    Pide al usuario que lo adivine y usa un bucle con condicionales para dar pistas: `"Mayor"` o `"Menor"`.  
+```
+<?php
+session_start();
+
+if (!isset($_SESSION["secreto"])) {
+    $_SESSION["secreto"] = rand(1, 20);
+}
+
+$mensaje = "";
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $intento = intval($_POST["numero"]);
+
+    if ($intento < $_SESSION["secreto"]) {
+        $mensaje = "El número secreto es <strong>mayor</strong>.";
+    } elseif ($intento > $_SESSION["secreto"]) {
+        $mensaje = "El número secreto es <strong>menor</strong>.";
+    } else {
+        $mensaje = "🎉 ¡Correcto! El número era <strong>{$_SESSION['secreto']}</strong>.";
+
+        unset($_SESSION["secreto"]);
+    }
+}
+?>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Adivina el número</title>
+</head>
+<body>
+    <h2>Juego: Adivina el número entre 1 y 20</h2>
+    <form method="post" action="">
+        <input type="number" name="numero" min="1" max="20" required>
+        <button type="submit">Probar</button>
+    </form>
+
+    <?php if ($mensaje): ?>
+        <p><?= $mensaje ?></p>
+    <?php endif; ?>
+</body>
+</html>
+``` 
 
 ---
 
 ### 4️⃣ Construcción de Algorítmicos
 
 16. **Número perfecto**  
-    Comprueba si un número es perfecto (la suma de sus divisores propios es igual al número).  
+```
+<?php
+    $num = 12;
+    $sum = 0;
+
+    for ($i = 1; $i < $num; $i++) {
+        if ($num % $i == 0) {
+            $sum += $i;
+        }
+    }
+
+    if ($sum == $num) {
+        echo "$num es PERFECTO.";
+    } else {
+        echo "$num no es perfecto.";
+    }
+?>
+``` 
 
 17. **Invertir número**  
     Escribe un algoritmo que invierta los dígitos de un número (ejemplo: `123 → 321`).  
