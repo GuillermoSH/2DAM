@@ -332,7 +332,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 ```
 
 19. **Máximo común divisor (MCD)**  
-```
+```php
 <?php
     $num1 = 12;
     $num2 = 28;
@@ -348,7 +348,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 ```  
 
 20. **Triángulo de asteriscos**  
-```
+```php
 <?php
     $n = 5;
 
