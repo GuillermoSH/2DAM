@@ -35,7 +35,7 @@
         }
     }
 
-    printPyramid(4,2);
+    montañaAsteriscos(4,2);
 ?>
 ```
 

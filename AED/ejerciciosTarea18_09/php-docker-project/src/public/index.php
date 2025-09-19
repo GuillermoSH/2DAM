@@ -7,11 +7,11 @@
     }
     
     
-    if (esCapicua(1234321)) {
+    /*if (esCapicua(1234321)) {
         echo "Es capicua";
     } else {
         echo "No es capicua";
-    }
+    }*/
 
     function montañaAsteriscos(int $n, int $m): void {
         for ($i=1; $i <= $n; $i++) {
@@ -23,7 +23,7 @@
         }
     }
 
-    //printPyramid(4,2);
+    montañaAsteriscos(4,2);
 
     function sumaDigitos(int $n): int {
         $deconstructedStr = mb_str_split(strval($n));
