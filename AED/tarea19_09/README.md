@@ -1,6 +1,10 @@
+# <img src=../../../../images/computer.png width="40"> Code, Learn & Practice("Introducción a Php, uso de funciones")
+
+## Número capicúa (palíndromo numérico)
+
+```php
 <?php
     declare(strict_types=1);
-    $sumaMultiplos = 0;
 
     function esCapicua(int $n): bool {
         return $n == intval(strrev((string) $n));
@@ -12,6 +16,14 @@
     } else {
         echo "No es capicua";
     }
+?>
+```
+
+## Escalera de asteriscos
+
+```php
+<?php
+    declare(strict_types=1);
 
     function montañaAsteriscos(int $n, int $m): void {
         for ($i=1; $i <= $n; $i++) {
@@ -23,8 +35,15 @@
         }
     }
 
-    //printPyramid(4,2);
+    printPyramid(4,2);
+?>
+```
 
+## Suma de dígitos
+
+```php
+<?php
+    declare(strict_types=1);
     function sumaDigitos(int $n): int {
         $deconstructedStr = mb_str_split(strval($n));
         $sum = 0;
@@ -36,7 +55,16 @@
         return $sum;
     }
 
-    //echo sumaDigitos(2025);
+    echo sumaDigitos(2025);
+?>
+```
+
+## Número secreto (múltiplos de 3 o 5)
+
+```php
+<?php
+    declare(strict_types=1);
+    $sumaMultiplos = 0;
 
     function multiplosTresOCinco(int $n): array {
         $multiplos = array();
@@ -50,9 +78,16 @@
         return $multiplos;
     }
 
-    //echo join(", ", multiplosTresOCinco(10));
-    //echo "Suma = $sumaMultiplos";
+    echo join(", ", multiplosTresOCinco(10));
+    echo "Suma = $sumaMultiplos";
+?>
+```
 
+## Secuencia de Collatz
+
+```php
+<?php
+    declare(strict_types=1);
     function secuenciaCollatz(int $n): array {
         $sequence = array($n);
 
@@ -68,5 +103,6 @@
         return $sequence;
     }
 
-    //echo join(" => ", secuenciaCollatz(0));
+    echo join(" => ", secuenciaCollatz(0));
 ?>
+```
