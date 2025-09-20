@@ -62,3 +62,39 @@
 
 19.
 ![Ejercicio 19](image-8.png)
+
+20.
+![Ejercicio 20](image-9.png)
+
+## Bloque 3: Procesos y jerarquía
+
+21. systemd/init es el es el encargado de inicializar y gestionar el resto del sistema:
+![Ejercicio 21](image-11.png)
+
+22. Pasaria a ser un proceso huérfano y es "adoptado" por el proceso init
+
+23. 
+![Ejercicio 23](image-12.png)
+
+24.
+![Ejercicio 24](image-13.png)
+
+25.
+![Ejercicio 25](image-14.png)
+
+26.
+- Running: en ejecución o listo para ejecutarse
+- Sleeping: en espera de un evento
+- Stopped: detenido o bajo control de depuración
+- Zombie: terminado cuyo estado aún no ha sido recogido por el proceso padre
+
+27.
+![Ejercicio 27](image-15.png)
+
+28.
+![Ejercicio 28](image-16.png)
+
+29. Con '&' el proceso solo se envia a segundo plano y cuando se cierre la temrinal se detendrá, mientras que nohup permite que el proceso siga ejecutándose aunque se haya cerrado la sesión.
+
+30.
+![Ejercicio 30](image-17.png)
