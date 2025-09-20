@@ -1,4 +1,4 @@
-# <img src=../../../../images/computer.png width="40"> Code, Learn & Practice("Introducción a Php, uso de funciones")
+# Code, Learn & Practice("Introducción a Php, uso de funciones")
 
 ## Número capicúa (palíndromo numérico)
 
@@ -10,14 +10,18 @@
         return $n == intval(strrev((string) $n));
     }
     
-    
-    if (esCapicua(1234321)) {
-        echo "Es capicua";
+    $number = 1234321;
+    if (esCapicua($number)) {
+        echo "$number es capicua";
     } else {
-        echo "No es capicua";
+        echo "$number no es capicua";
     }
 ?>
 ```
+#### Salida:
+
+![alt text](image.png)
+
 
 ## Escalera de asteriscos
 
@@ -38,6 +42,9 @@
     montañaAsteriscos(4,2);
 ?>
 ```
+#### Salida:
+
+![alt text](image-1.png)
 
 ## Suma de dígitos
 
@@ -55,9 +62,13 @@
         return $sum;
     }
 
-    echo sumaDigitos(2025);
+    $number = 2025;
+    echo "La suma de los digitos de $number da: " . sumaDigitos(2025);
 ?>
 ```
+#### Salida:
+
+![alt text](image-2.png)
 
 ## Número secreto (múltiplos de 3 o 5)
 
@@ -79,9 +90,12 @@
     }
 
     echo join(", ", multiplosTresOCinco(10));
-    echo "Suma = $sumaMultiplos";
+    echo "</br>Suma = $sumaMultiplos";
 ?>
 ```
+#### Salida:
+
+![alt text](image-3.png)
 
 ## Secuencia de Collatz
 
@@ -103,6 +117,9 @@
         return $sequence;
     }
 
-    echo join(" => ", secuenciaCollatz(0));
+    echo join(" => ", secuenciaCollatz(6));
 ?>
 ```
+#### Salida:
+
+![alt text](image-4.png)
