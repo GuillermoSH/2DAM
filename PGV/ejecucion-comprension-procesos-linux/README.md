@@ -39,6 +39,7 @@
 ![Ejercicio 12](image-1.png)
 
 13. Estamos buscando el PID del proceso systemd, primer proceso iniciado por distros GNU/Linux después del núcleo, encargandose de inicializar y gestionar el resto del sistema.
+
 ![Ejercicio 13](image-2.png)
 
 14.
@@ -49,6 +50,7 @@
 - TTY: Terminal asociado al proceso
 - Time: Tiempo de CPU usado
 - CMD: Nombre del proceso
+
 ![Ejercicio 15](image-4.png)
 
 16.
@@ -69,6 +71,7 @@
 ## Bloque 3: Procesos y jerarquía
 
 21. systemd/init es el es el encargado de inicializar y gestionar el resto del sistema:
+
 ![Ejercicio 21](image-11.png)
 
 22. Pasaria a ser un proceso huérfano y es "adoptado" por el proceso init
