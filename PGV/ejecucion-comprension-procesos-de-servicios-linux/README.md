@@ -161,6 +161,12 @@ systemctl --user status fecha-log.service --no-pager -l | sed -n '1,10p'
 **Salida (pega un extracto):**
 
 ```text
+○ fecha-log.service - Escribe fecha en $HOME/dam/logs/fecha.log
+     Loaded: loaded (/home/dam/.config/systemd/user/fecha-log.service; static)
+     Active: inactive (dead)
+
+sep 24 16:26:11 a108pc09 systemd[3358]: Started fecha-log.service - Escribe fecha en $HOME/dam/logs/fecha.log.
+sep 24 16:27:09 a108pc09 systemd[3358]: Started fecha-log.service - Escribe fecha en $HOME/dam/logs/fecha.log.
 
 ```
 **Pregunta:** ¿Se creó/actualizó `~/dam/logs/fecha.log`? Muestra las últimas líneas:
@@ -172,13 +178,14 @@ tail -n 5 "$DAM/logs/fecha.log"
 **Salida:**
 
 ```text
-
+2025-09-24T16:26:11+01:00 :: hello from user timer
+2025-09-24T16:27:09+01:00 :: hello from user timer
 ```
 
 **Reflexiona la salida:**
 
 ```text
-
+Se ejecuto dos veces la escritura en el fichero log y se registro las horas a las que el timer fue ejecutado.
 ```
 
 ---
@@ -207,11 +214,13 @@ systemctl --user list-timers --all | grep fecha-log || true
 **Salida (recorta):**
 
 ```text
-
+Created symlink /home/dam/.config/systemd/user/timers.target.wants/fecha-log.timer → /home/dam/.config/systemd/user/fecha-log.timer.
+Wed 2025-09-24 16:30:00 WEST  43s -                                       - fecha-log.timer                fecha-log.service
 ```
 **Pregunta:** ¿Qué diferencia hay entre `enable` y `start` cuando usas `systemctl --user`?  
 
 **Respuesta:**
+Enable es cuando quieres que se ejecute en el arranque del sistema y start solo por esta sesión.
 
 ---
 
@@ -224,11 +233,15 @@ journalctl --user -u fecha-log.service -n 10 --no-pager
 **Salida:**
 
 ```text
+sep 24 16:26:11 a108pc09 systemd[3358]: Started fecha-log.service - Escribe fecha en $HOME/dam/logs/fecha.log.
+sep 24 16:27:09 a108pc09 systemd[3358]: Started fecha-log.service - Escribe fecha en $HOME/dam/logs/fecha.log.
+sep 24 16:30:08 a108pc09 systemd[3358]: Started fecha-log.service - Escribe fecha en $HOME/dam/logs/fecha.log.
 
 ```
 **Pregunta:** ¿Ves ejecuciones activadas por el timer? ¿Cuándo fue la última?  
 
 **Respuesta:**
+Si, 3 en total y la última fue el 24 de septiembre a las 16:30:08
 
 ---
 
@@ -250,7 +263,7 @@ java      12801  dam   17u  IPv6  53807      0t0  TCP 127.0.0.1:17907 (LISTEN)
 **Pregunta:** ¿Qué procesos *tuyos* están escuchando? (si no hay, explica por qué)  
 
 **Respuesta:**
-
+Los 4 que se han dado en la salida del comando ejecutado
 
 ---
 
@@ -264,11 +277,12 @@ ps -eo pid,ppid,cmd,stat | grep "[s]leep 200"
 **Salida:**
 
 ```text
-
+Running as unit: run-r1ed2e8bb271043029942f6bbb806545a.scope; invocation ID: dd7d33f6d45d468d9cd98920e4125728
 ```
 **Pregunta:** ¿Qué ventaja tiene lanzar con `systemd-run --user` respecto a ejecutarlo “a pelo”?  
 
 **Respuesta:**
+
 
 ---
 
@@ -280,11 +294,22 @@ top -b -n 1 | head -n 15
 **Salida (resumen):**
 
 ```text
+top - 16:32:59 up  1:57,  1 user,  load average: 0,58, 0,51, 0,71
+Tareas: 407 total,   1 ejecutar,  405 hibernar,    0 detener,    1 zombie
+%Cpu(s):  0,6 us,  0,0 sy,  0,0 ni, 98,1 id,  1,3 wa,  0,0 hi,  0,0 si,  0,0 st 
+MiB Mem :  31453,3 total,  23104,8 libre,   4228,4 usado,   4629,8 búf/caché    
+MiB Intercambio:   2048,0 total,   2048,0 libre,      0,0 usado.  27224,8 dispon
+
+    PID USUARIO   PR  NI    VIRT    RES    SHR S  %CPU  %MEM     HORA+ ORDEN
+      1 root      20   0   23240  13684   9204 S   0,0   0,0   0:01.59 systemd
+      2 root      20   0       0      0      0 S   0,0   0,0   0:00.01 kthreadd
+      3 root      20   0       0      0      0 S   0,0   0,0   0:00.00 pool_wo+
 
 ```
 **Pregunta:** ¿Cuál es tu proceso con mayor `%CPU` en ese momento?  
 
 **Respuesta:**
+Procesos de firefox que no salen en la salida por estar ordenados por PID con un 5.6% de la CPU
 
 ---
 
@@ -318,11 +343,33 @@ pstree -p | head -n 50
 **Salida (recorta):**
 
 ```text
-
+systemd(1)-+-ModemManager(1860)-+-{ModemManager}(1870)
+           |                    |-{ModemManager}(1872)
+           |                    `-{ModemManager}(1874)
+           |-NetworkManager(1828)-+-{NetworkManager}(1865)
+           |                      |-{NetworkManager}(1866)
+           |                      `-{NetworkManager}(1867)
+           |-accounts-daemon(1159)-+-{accounts-daemon}(1198)
+           |                       |-{accounts-daemon}(1199)
+           |                       `-{accounts-daemon}(1830)
+           |-agetty(2261)
+           |-apache2(2323)-+-apache2(2337)
+           |               |-apache2(2339)
+           |               |-apache2(2340)
+           |               |-apache2(2341)
+           |               `-apache2(2343)
+           |-at-spi2-registr(3712)-+-{at-spi2-registr}(3718)
+           |                       |-{at-spi2-registr}(3719)
+           |                       `-{at-spi2-registr}(3720)
+           |-avahi-daemon(1165)---avahi-daemon(1259)
+           |-blkmapd(1098)
+           |-chrome_crashpad(4201)-+-{chrome_crashpad}(4202)
+           |                       `-{chrome_crashpad}(4203)
 ```
 **Pregunta:** ¿Bajo qué proceso aparece tu `systemd --user`?  
 
 **Respuesta:**
+De systemd PID 1
 
 ---
 
@@ -334,11 +381,36 @@ ps -eo pid,ppid,stat,cmd | head -n 20
 **Salida:**
 
 ```text
+    PID    PPID STAT CMD
+      1       0 Ss   /sbin/init splash
+      2       0 S    [kthreadd]
+      3       2 S    [pool_workqueue_release]
+      4       2 I<   [kworker/R-rcu_g]
+      5       2 I<   [kworker/R-rcu_p]
+      6       2 I<   [kworker/R-slub_]
+      7       2 I<   [kworker/R-netns]
+     10       2 I<   [kworker/0:0H-events_highpri]
+     12       2 I<   [kworker/R-mm_pe]
+     13       2 I    [rcu_tasks_kthread]
+     14       2 I    [rcu_tasks_rude_kthread]
+     15       2 I    [rcu_tasks_trace_kthread]
+     16       2 S    [ksoftirqd/0]
+     17       2 I    [rcu_preempt]
+     18       2 S    [migration/0]
+     19       2 S    [idle_inject/0]
+     20       2 S    [cpuhp/0]
+     21       2 S    [cpuhp/1]
+     22       2 S    [idle_inject/1]
 
 ```
 **Pregunta:** Explica 3 flags de `STAT` que veas (ej.: `R`, `S`, `T`, `Z`, `+`).  
 
 **Respuesta:**
+- Ss: sleep ininterrumpible que es lider de sesion
+- I<: hilo del kernel suspendido con prioridad alta
+- S: sleep ininterrumpible
+- I: hilo del kernel
+- R: ejecutable o en ejecucion
 
 ---
 
@@ -360,11 +432,19 @@ ps -o pid,stat,cmd -p "$pid"
 **Pega los dos estados (antes/después):**
 
 ```text
+[1] 68246
+
+[1]+  Detenido                sleep 120
+    PID STAT CMD
+  68246 T    bash
+    PID STAT CMD
+  68246 S    sleep 120
 
 ```
 **Pregunta:** ¿Qué flag indicó la suspensión?  
 
 **Respuesta:**
+La S
 
 ---
 
@@ -386,11 +466,13 @@ ps -el | grep ' Z '
 **Salida (recorta):**
 
 ```text
-
+[2] 68597
+0 Z  1001   41495   41483  0  80   0 -     0 -      ?        00:00:00 sd_espeak-ng-mb
 ```
 **Pregunta:** ¿Por qué el estado `Z` y qué lo limpia finalmente?  
 
 **Respuesta:**
+Z para crear un proceso zombie (esperando a que el padre reciba su estado de finalizacion)
 
 ---
 
