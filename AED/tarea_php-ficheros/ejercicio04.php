@@ -1,18 +1,14 @@
 <?php
     $nombres = array("Ana", "Luis", "Marta", "Carlos", "Julia");
-    $file = fopen("nombres.txt", "rw");
+    $file = fopen("nombres.txt", "w");
 
-    for($i=0; $i<=count($nombres); $i++) {
+    for($i=0; $i<count($nombres); $i++) {
         fwrite($file, $nombres[$i] . PHP_EOL);
     }
 
-    $fileNombres = [];
+    $fileNombres = file("nombres.txt", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
     
-    
-    array_push($fileNombres, fgets($file));
-    
-
     fclose($file);
     
-    var_dump($fileNombres);
+    print_r($fileNombres);
 ?>

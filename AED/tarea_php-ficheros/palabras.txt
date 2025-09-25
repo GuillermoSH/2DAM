@@ -1,0 +1,19 @@
+programador
+computadora
+teclado
+ratón
+monitor
+impresora
+tarjeta gráfica
+tarjeta de sonido
+procesador
+RAM
+disco duro
+sistema operativo
+redes
+cable
+switch
+router
+modem
+firewall
+antivirus

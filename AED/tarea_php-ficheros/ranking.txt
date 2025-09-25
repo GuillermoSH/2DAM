@@ -1,0 +1,4 @@
+Sonic: 8
+Mario: 5
+Zelda: 10
+Pokemon: 7
