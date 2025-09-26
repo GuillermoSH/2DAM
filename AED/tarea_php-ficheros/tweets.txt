@@ -1,0 +1,6 @@
+[2025-09-26 20:06] Aprendiendo PHP con ejercicios divertidos #php
+[2025-09-26 20:07] Otro día más programando 🚀
+[2025-09-26 20:08] Probando un simulador de tweets 📱
+[2025-09-26 20:09] Me encanta practicar con PHP 😎
+[2025-09-26 20:10] Último tweet de ejemplo ✨
+[2025-09-26 20:11] Bonus tweet para ver cómo se limita a 5 🔥
