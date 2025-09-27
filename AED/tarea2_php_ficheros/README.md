@@ -63,24 +63,59 @@ z1,z2,op,resultado
 
 ---
 
-## Ejemplo de ejecución
+## Codigo PHP
 
-```bash
-php ejercicio1.php
-```
+```php
+<?php
+$inputFile = 'ops.csv';
+$outputFile = 'resultado.csv';
 
-### ops.csv
+if (!file_exists($inputFile)) {
+    echo "[ERROR] No se encuentra el archivo ops.csv\n";
+    exit(1);
+}
 
-```code
-z1,z2,op
-3,1,suma
-10,4,resta
-2,8,resta
-5,2,producto
-7,0,producto
-9,3,division
-10,3,division
-8,0,division
+$input = fopen($inputFile, 'r');
+$output = fopen($outputFile, 'w');
+
+fputcsv($output, ['z1', 'z2', 'op', 'resultado']);
+
+while (($row = fgetcsv($input)) !== false) {
+    $z1 = (int)$row[0];
+    $z2 = (int)$row[1];
+    $op = strtolower($row[2]);
+    $resultado = '';
+
+    switch ($op) {
+        case 'suma':
+            $resultado = $z1 + $z2;
+            break;
+        case 'resta':
+            $resultado = $z1 - $z2;
+            break;
+        case 'producto':
+            $resultado = $z1 * $z2;
+            break;
+        case 'division':
+            if ($z2 == 0) {
+                $resultado = 'ERROR';
+            } else {
+                $resultado = $z1 / $z2;
+            }
+            break;
+        default:
+            $resultado = 'ERROR';
+    }
+    fputcsv($output, [$z1, $z2, $op, $resultado]);
+    
+    echo "$z1,$z2,$op,$resultado\n";
+}
+
+fclose($input);
+fclose($output);
+
+echo "\n[INFO] Archivo resultado.csv generado correctamente.\n";
+?>
 ```
 
 ## Ejercicio 2: Estadísticas de palabras en PHP
@@ -158,28 +193,37 @@ entre,1
 mortales,1
 ```
 
-### Entrada (`texto.txt`)
+### Codigo PHP
 
-```code
-PHP es divertido. PHP es potente y divertido.
+```php
+<?php
+$inputFile = 'texto.txt';
+$outputFile = 'estadisticas.csv';
+
+if (!file_exists($inputFile)) {
+    echo "[ERROR] No se encuentra el archivo texto.txt\n";
+    exit(1);
+}
+
+$texto = file_get_contents($inputFile);
+$texto = strtolower($texto);
+
+// Eliminar todo menos letras(\p{L}), numeros(\p{N}) y espacios(\s). /u es para Unicode
+$texto = preg_replace('/[^\p{L}\p{N}\s]/u', '', $texto);
+
+// Separar palabras por uno o mas espacios
+$palabras = preg_split('/\s+/', $texto, -1, PREG_SPLIT_NO_EMPTY);
+
+$frecuencias = array_count_values($palabras);
+
+$output = fopen($outputFile, 'w');
+fputcsv($output, ['palabra', 'frecuencia']);
+foreach ($frecuencias as $palabra => $frecuencia) {
+    fputcsv($output, [$palabra, $frecuencia]);
+    echo "$palabra,$frecuencia\n";
+}
+fclose($output);
+
+echo "\n[INFO] Archivo estadisticas.csv generado correctamente.\n";
+?>
 ```
-
-### Salida esperada (`estadisticas.csv`)
-
-```code
-palabra,frecuencia
-php,2
-es,2
-divertido,2
-potente,1
-y,1
-```
-
-
-## Referencias
-
-- https://doc.php.net/archives/php5/php_manual_en.tar.gz
-
-## Licencia 📄
-
-Este proyecto está bajo la Licencia (Apache 2.0) - mira el archivo [LICENSE.md]([../../../LICENSE.md](https://github.com/jpexposito/code-learn-practice/blob/main/LICENSE)) para detalles.
