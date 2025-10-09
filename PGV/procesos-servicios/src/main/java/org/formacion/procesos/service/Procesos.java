@@ -1,12 +1,13 @@
 package org.formacion.procesos.service;
 
-import org.formacion.procesos.component.IFicheroComponent;
+import org.formacion.procesos.component.interfaces.IFicheroComponent;
+import org.formacion.procesos.service.interfaces.IProcesos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
 @Service
-public class Procesos {
+public class Procesos implements IProcesos {
     IFicheroComponent componenteFichero;
 
     @Autowired
@@ -16,12 +17,16 @@ public class Procesos {
 
     public void ejecutar() {
         System.out.println("Ejecutando lógica del proceso...");
-        System.out.println(componenteFichero.mensaje());
+        String[] splittedCommand = "ls -l".split(" ");
+        ProcessBuilder processbuilder = getProcessBuilder(splittedCommand);
+        try {
+            processbuilder.start();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
     
-    public ProcessBuilder getProcessBuilder(String[] command) {
-        if (command.length == 1) return new ProcessBuilder(command[0]);
-        if (command.length == 2) return new ProcessBuilder(command[0], command[1]);
-        return new ProcessBuilder(command[0], command[1], command[2]);
+    private ProcessBuilder getProcessBuilder(String[] command) {
+        return new ProcessBuilder(command);
     }
 }
