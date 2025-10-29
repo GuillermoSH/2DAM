@@ -3,10 +3,14 @@ package com.docencia.com.proc_cli.repositories.file;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.*;
+
+import org.springframework.stereotype.Repository;
+
 import com.docencia.com.proc_cli.repositories.interfaces.JobRepository;
 
+@Repository
 public class FileJobRepository implements JobRepository {
-    private String loggerFileName = "stdout.txt";
+    private String loggerFileName = "logger.txt";
     private Path loggerFilePath;
 
     public FileJobRepository() {

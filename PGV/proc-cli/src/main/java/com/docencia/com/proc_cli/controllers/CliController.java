@@ -37,6 +37,7 @@ public class CliController {
         } else {
             psHeadService.processLine(commandStr);
         }
+
         scanner.close();
     }
 }

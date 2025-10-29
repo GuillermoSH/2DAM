@@ -1,7 +1,8 @@
 package com.docencia.com.proc_cli.repositories.interfaces;
 
-import java.io.IOException;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface JobRepository {
     boolean add(String content);
 }

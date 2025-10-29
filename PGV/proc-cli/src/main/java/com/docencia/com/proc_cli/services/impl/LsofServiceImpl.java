@@ -1,5 +1,7 @@
 package com.docencia.com.proc_cli.services.impl;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +18,31 @@ public class LsofServiceImpl implements LsofService {
     JobRepository jobRepository;
 
     @Override
-    public void processLine(String command) {
-        if (!validate(command, this.allowed_cmds)) jobRepository.add("[ERR] The command params you have entered doesn't exists");
+    public boolean processLine(String command) {
+        boolean isExec = false;
+        if (!validate(command, this.allowed_cmds)) {
+            jobRepository.add(String.format("[ERR] This command '%s' you have entered couldn't be executed\n", command));
+            return isExec;
+        }
+        ProcessBuilder pb = new ProcessBuilder(command.split(" "));
+        BufferedReader buf;
+        String line = "";
+        String output = "[OUT] (lsof -i) output stream:\n";
 
+        try {
+            Process p = pb.start();
+            buf = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            while ((line = buf.readLine()) != null) {
+                output += line + "\n";
+            }
+            p.waitFor();
+            output += String.format("%s%n", "-".repeat(80));
+            isExec = true;
+        } catch (Exception e) {
+            output = String.format("[ERR] %s%n", e.getMessage());
+        }
+        jobRepository.add(output);
+        return isExec;
     }
 
     @Override
