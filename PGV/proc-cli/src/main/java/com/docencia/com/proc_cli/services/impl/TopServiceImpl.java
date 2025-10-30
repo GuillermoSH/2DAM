@@ -13,9 +13,12 @@ import com.docencia.com.proc_cli.services.interfaces.TopService;
 @Service
 public class TopServiceImpl implements TopService {
     private String[] allowed_cmds = {"top"};
+    JobRepository jobRepository;
 
     @Autowired
-    JobRepository jobRepository;
+    public TopServiceImpl(JobRepository jobRepository) {
+        this.jobRepository = jobRepository;
+    }
 
     @Override
     public boolean processLine(String command) {

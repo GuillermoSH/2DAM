@@ -13,9 +13,12 @@ import com.docencia.com.proc_cli.services.interfaces.LsofService;
 @Service
 public class LsofServiceImpl implements LsofService {
     private String[] allowed_cmds = {"lsof -i"};
-
-    @Autowired
     JobRepository jobRepository;
+    
+    @Autowired
+    public LsofServiceImpl(JobRepository jobRepository) {
+        this.jobRepository = jobRepository;
+    }
 
     @Override
     public boolean processLine(String command) {

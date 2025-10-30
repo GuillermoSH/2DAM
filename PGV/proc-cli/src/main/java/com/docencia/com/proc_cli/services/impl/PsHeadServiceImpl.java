@@ -13,9 +13,12 @@ import com.docencia.com.proc_cli.services.interfaces.PsHeadService;
 @Service
 public class PsHeadServiceImpl implements PsHeadService {
     private String[] allowed_cmds = {"ps aux | head"};
+    JobRepository jobRepository;
 
     @Autowired
-    JobRepository jobRepository;
+    public PsHeadServiceImpl(JobRepository jobRepository) {
+        this.jobRepository = jobRepository;
+    }
 
     @Override
     public boolean processLine(String command) {
@@ -25,26 +28,26 @@ public class PsHeadServiceImpl implements PsHeadService {
             return isExec;
         }
 
-        ProcessBuilder psProcessBuilder = new ProcessBuilder("ps", "aux");
-        ProcessBuilder headProcessBuilder = new ProcessBuilder("head");
+        ProcessBuilder psProcessBuilder = new ProcessBuilder("ps", "aux", "head");
+        //ProcessBuilder headProcessBuilder = new ProcessBuilder("head");
         BufferedReader buf;
         String line = "";
         String output = "[OUT] (ps aux | head) output stream:\n";
 
         try {
             Process psProcess = psProcessBuilder.start();
-            Process headProcess = headProcessBuilder.start();
-            psProcess.getInputStream().transferTo(headProcess.getOutputStream());
-            buf = new BufferedReader(new InputStreamReader(headProcess.getInputStream()));
+            //Process headProcess = headProcessBuilder.start();
+            //psProcess.getInputStream().transferTo(headProcess.getOutputStream());
+            buf = new BufferedReader(new InputStreamReader(psProcess.getInputStream()));
             while ((line = buf.readLine()) != null) {
                 output += line + "\n";
             }
             psProcess.waitFor();
-            headProcess.waitFor();
+            //headProcess.waitFor();
             output += String.format("%s%n", "-".repeat(80));
             isExec = true;
         } catch (Exception e) {
-            output = String.format("[ERR] %s%n", e.getMessage());
+            output = String.format("[ERR] %s%n", e);
         }
 
         jobRepository.add(output);
