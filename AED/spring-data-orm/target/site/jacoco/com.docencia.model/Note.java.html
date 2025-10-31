@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Note.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">spring-data-orm</a> &gt; <a href="index.source.html" class="el_package">com.docencia.model</a> &gt; <span class="el_source">Note.java</span></div><h1>Note.java</h1><pre class="source lang-java linenums">package com.docencia.model;
+
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.Objects;
+
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@Table(name = &quot;notes&quot;)
+public class Note {
+
+    @Id
+    @Column(length = 64)
+    @NotBlank
+    private String id;
+
+    @NotBlank
+    @Size(max = 255)
+    private String title;
+
+    @Lob
+    @Column(nullable = false)
+    private String content;
+
+<span class="nc" id="L34">    public Note(String id) {</span>
+<span class="nc" id="L35">        this.setId(id);</span>
+<span class="nc" id="L36">    }</span>
+
+    @Override
+    public boolean equals(Object o) {
+<span class="pc bpc" id="L40" title="1 of 2 branches missed.">        if (this == o) {</span>
+<span class="nc" id="L41">            return true;</span>
+        }
+<span class="pc bpc" id="L43" title="2 of 4 branches missed.">        if (o == null || getClass() != o.getClass()) {</span>
+<span class="nc" id="L44">            return false;</span>
+        }
+<span class="fc" id="L46">        Note note = (Note) o;</span>
+<span class="fc" id="L47">        return Objects.equals(id, note.id);</span>
+    }
+
+    @Override
+    public int hashCode() {
+<span class="nc" id="L52">        return Objects.hash(id);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

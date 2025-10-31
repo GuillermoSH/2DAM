@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 import java.util.Optional;
 
-public interface INoteJpaRepository extends JpaRepository<Note, String> {
+public interface ISqliteNoteRepository extends JpaRepository<Note, String> {
     Optional<Note> findFirstByTitle(String title);
 
     @Query(value = "SELECT * FROM notes WHERE title LIKE %?1%", nativeQuery = true)

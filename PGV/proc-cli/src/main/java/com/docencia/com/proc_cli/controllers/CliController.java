@@ -8,18 +8,17 @@ import org.springframework.stereotype.Service;
 import com.docencia.com.proc_cli.services.impl.LsofServiceImpl;
 import com.docencia.com.proc_cli.services.impl.PsHeadServiceImpl;
 import com.docencia.com.proc_cli.services.impl.TopServiceImpl;
-import com.docencia.com.proc_cli.services.interfaces.CommandService;
 
 @Service
 public class CliController {
     @Autowired
-    LsofServiceImpl lsofService;
+    public LsofServiceImpl lsofService;
     
     @Autowired
-    TopServiceImpl topService;
+    public TopServiceImpl topService;
     
     @Autowired
-    PsHeadServiceImpl psHeadService;
+    public PsHeadServiceImpl psHeadService;
 
 
     public void consoleMenu() {
@@ -29,11 +28,11 @@ public class CliController {
                 "  lsof -i\n" +
                 "  top\n" +
                 "  ps aux | head\n");
-        String commandStr = scanner.nextLine().toUpperCase();
+        String commandStr = scanner.nextLine();
 
-        if (commandStr.startsWith("LSOF")) lsofService.processLine(commandStr);
-        if (commandStr.startsWith("TOP")) topService.processLine(commandStr);
-        if (commandStr.startsWith("PS")) psHeadService.processLine(commandStr);
+        if (commandStr.toUpperCase().startsWith("LSOF")) lsofService.processLine(commandStr, false);
+        if (commandStr.toUpperCase().startsWith("TOP")) topService.processLine(commandStr, true);
+        if (commandStr.toUpperCase().startsWith("PS")) psHeadService.processLine(commandStr, false);
 
         scanner.close();
     }

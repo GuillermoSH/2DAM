@@ -1,6 +1,9 @@
 package com.docencia.repo.jpa;
 
 import com.docencia.repo.INoteRepository;
+
+import io.micrometer.common.util.StringUtils;
+
 import com.docencia.model.Note;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
@@ -11,11 +14,11 @@ import java.util.UUID;
 
 @Repository
 @Profile("sqlite")
-public class NoteJpaAdapter implements INoteRepository {
+public class NoteJpaRepository implements INoteRepository {
 
-    private final INoteJpaRepository repository;
+    private final ISqliteNoteRepository repository;
 
-    public NoteJpaAdapter(INoteJpaRepository repository) {
+    public NoteJpaRepository(ISqliteNoteRepository repository) {
         this.repository = repository;
     }
 
@@ -30,8 +33,8 @@ public class NoteJpaAdapter implements INoteRepository {
     }
 
     @Override
-    public Note find(Note example) {
-        return repository.findFirstByTitle(example.getTitle()).orElse(null);
+    public Note find(Note note) {
+        return findById(note.getId());
     }
 
     @Override
@@ -42,18 +45,19 @@ public class NoteJpaAdapter implements INoteRepository {
     @Override
     @Transactional
     public Note save(Note note) {
-        if (note.getId() == null) {
+        if (note.getId() == null || StringUtils.isEmpty(note.getId())) {
             note.setId(UUID.randomUUID().toString());
         }
         return repository.save(note);
     }
 
-  @Override @Transactional
-  public boolean delete(String id){
-    if(!repository.existsById(id)) {
-      return false;
-    } 
-    repository.deleteById(id);
-    return true;
-  }
+    @Override
+    @Transactional
+    public boolean delete(String id) {
+        if (!exists(id)) {
+            return false;
+        }
+        repository.deleteById(id);
+        return true;
+    }
 }

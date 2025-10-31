@@ -1,0 +1,12 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+spring-data-orm,com.docencia,Main,7,0,0,0,3,0,2,0,2,0
+spring-data-orm,com.docencia.service,ServiceNoteAbstract,8,3,0,0,2,1,2,1,2,1
+spring-data-orm,com.docencia.service,JsonServiceNote,36,24,0,0,10,6,4,4,4,4
+spring-data-orm,com.docencia.service,NoteService,40,0,0,0,10,0,8,0,8,0
+spring-data-orm,com.docencia.service,XmlServiceNote,41,24,0,0,11,6,5,4,5,4
+spring-data-orm,com.docencia.model,Note,19,19,3,3,6,4,5,1,2,1
+spring-data-orm,com.docencia.repo.file,FileNoteXmlRepository,12,0,0,0,4,0,2,0,2,0
+spring-data-orm,com.docencia.repo.file,FileNoteJsonRepository,12,0,0,0,4,0,2,0,2,0
+spring-data-orm,com.docencia.repo.file,FileNoteRepository,113,0,6,0,25,0,11,0,8,0
+spring-data-orm,com.docencia.repo.file,FileNoteAbstractRepository,201,0,8,0,42,0,16,0,12,0
+spring-data-orm,com.docencia.repo.jpa,NoteJpaRepository,57,0,6,0,14,0,10,0,7,0

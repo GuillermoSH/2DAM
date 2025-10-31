@@ -8,10 +8,10 @@ import com.docencia.com.proc_cli.services.impl.abstracts.CommandServiceAbstract;
 
 @Component
 public class PsHeadServiceImpl extends CommandServiceAbstract {
+    private final FileJobRepository jobRepository = new FileJobRepository();
 
     public PsHeadServiceImpl() {
-        String[] allowedCmds = {"ps aux | head"};
-        FileJobRepository jobRepository = new FileJobRepository();
+        String[] allowedCmds = { "ps aux | head" };
         this.setJobRepository(jobRepository);
         this.setJobType(Job.PS);
         this.setAllowedCmds(allowedCmds);

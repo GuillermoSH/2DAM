@@ -15,6 +15,14 @@ public class FileJobRepository implements JobRepository {
 
     public FileJobRepository() {
         try {
+            this.loggerFilePath = getFilePath(this.loggerFileName);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public FileJobRepository(String loggerFileName) {
+        try {
             this.loggerFilePath = getFilePath(loggerFileName);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -23,7 +31,7 @@ public class FileJobRepository implements JobRepository {
 
     private Path getFilePath(String fileName) throws IOException {
         URL resource = getClass().getClassLoader().getResource(fileName);
-        if (resource == null) throw new IOException("El fichero no exisite " + fileName);
+        if (resource == null) throw new IOException("El fichero no existe " + fileName);
 
         return Paths.get(resource.getPath());
     }
