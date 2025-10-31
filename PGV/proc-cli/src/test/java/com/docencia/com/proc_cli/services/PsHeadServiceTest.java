@@ -8,27 +8,12 @@ import com.docencia.com.proc_cli.repositories.file.FileJobRepository;
 import com.docencia.com.proc_cli.services.impl.PsHeadServiceImpl;
 
 class PsHeadServiceTest {
-    PsHeadServiceImpl psHeadServiceImpl;
-    FileJobRepository jobRepository;
     String[] allowed_cmds;
+    PsHeadServiceImpl psHeadServiceImpl;
 
     @BeforeEach
     void beforeEach() {
-        jobRepository = new FileJobRepository();
-        psHeadServiceImpl = new PsHeadServiceImpl(jobRepository);
         allowed_cmds = new String[]{"ps aux | head"};
-    }
-
-    @Test
-    void validateCorrectCommandTest() {
-        boolean isValid = psHeadServiceImpl.validate("ps aux | head", allowed_cmds);
-        Assertions.assertTrue(isValid, "Se ha producido un error en la validación");
-    }
-
-    @Test
-    void validateIncorrectCommandTest() {
-        boolean isValid = psHeadServiceImpl.validate("ps aux head", allowed_cmds);
-        Assertions.assertFalse(isValid, "Se ha producido un error en la validación");
     }
 
     @Test

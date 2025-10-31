@@ -17,7 +17,7 @@ public class ProcCliApplication {
 	@Bean
 	CommandLineRunner demo(CliController controller) {
 		return args -> {
-			controller.menuConsola();
+			controller.consoleMenu();
 		};
 	}
 }

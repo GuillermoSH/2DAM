@@ -5,38 +5,35 @@ import java.util.Scanner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.docencia.com.proc_cli.services.interfaces.LsofService;
-import com.docencia.com.proc_cli.services.interfaces.PsHeadService;
-import com.docencia.com.proc_cli.services.interfaces.TopService;
+import com.docencia.com.proc_cli.services.impl.LsofServiceImpl;
+import com.docencia.com.proc_cli.services.impl.PsHeadServiceImpl;
+import com.docencia.com.proc_cli.services.impl.TopServiceImpl;
+import com.docencia.com.proc_cli.services.interfaces.CommandService;
 
 @Service
 public class CliController {
     @Autowired
-    LsofService lsofService;
+    LsofServiceImpl lsofService;
     
     @Autowired
-    TopService topService;
+    TopServiceImpl topService;
     
     @Autowired
-    PsHeadService psHeadService;
+    PsHeadServiceImpl psHeadService;
 
 
-    public void menuConsola() {
+    public void consoleMenu() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("=== Lanzador de Procesos (CLI) Linux ===\n" +
                 "Comandos:\n" +
                 "  lsof -i\n" +
                 "  top\n" +
                 "  ps aux | head\n");
-        String commandStr = scanner.nextLine();
+        String commandStr = scanner.nextLine().toUpperCase();
 
-        if (commandStr.toUpperCase().startsWith("LSOF")) {
-            lsofService.processLine(commandStr);
-        } else if (commandStr.toUpperCase().startsWith("TOP")) {
-            topService.processLine(commandStr);
-        } else {
-            psHeadService.processLine(commandStr);
-        }
+        if (commandStr.startsWith("LSOF")) lsofService.processLine(commandStr);
+        if (commandStr.startsWith("TOP")) topService.processLine(commandStr);
+        if (commandStr.startsWith("PS")) psHeadService.processLine(commandStr);
 
         scanner.close();
     }

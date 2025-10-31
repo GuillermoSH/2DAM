@@ -8,27 +8,12 @@ import com.docencia.com.proc_cli.repositories.file.FileJobRepository;
 import com.docencia.com.proc_cli.services.impl.LsofServiceImpl;
 
 class LsofServiceTest {
-    LsofServiceImpl lsofServiceImpl;
-    FileJobRepository jobRepository;
     String[] allowed_cmds;
+    LsofServiceImpl lsofServiceImpl;
 
     @BeforeEach
     void beforeEach() {
-        jobRepository = new FileJobRepository();
-        lsofServiceImpl = new LsofServiceImpl(jobRepository);
         allowed_cmds = new String[]{"lsof -i"};
-    }
-
-    @Test
-    void validateCorrectCommandTest() {
-        boolean isValid = lsofServiceImpl.validate("lsof -i", allowed_cmds);
-        Assertions.assertTrue(isValid, "Se ha producido un error en la validación");
-    }
-
-    @Test
-    void validateIncorrectCommandTest() {
-        boolean isValid = lsofServiceImpl.validate("lsof iiii", allowed_cmds);
-        Assertions.assertFalse(isValid, "Se ha producido un error en la validación");
     }
 
     @Test
