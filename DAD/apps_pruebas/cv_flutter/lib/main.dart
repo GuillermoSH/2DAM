@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -8,25 +8,29 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'CV Samira Hadid',
       theme: ThemeData(
-        primaryColor: Colors.white,
-        textTheme: TextTheme(
+        fontFamily: 'Roboto',
+        primaryColor: const Color(0xFF2D2D2D),
+        scaffoldBackgroundColor: Colors.white,
+        textTheme: const TextTheme(
           headlineLarge: TextStyle(
-            color: Colors.black,
-            fontSize: 24,
+            fontSize: 28,
             fontWeight: FontWeight.bold,
-          ), // Para el título principal
+            color: Color(0xFF2D2D2D),
+          ),
           bodyLarge: TextStyle(
-            color: Color(0xFF757575),
             fontSize: 16,
-          ), // Para el texto normal
+            color: Colors.black87,
+          ),
           bodyMedium: TextStyle(
-            color: Colors.black,
-            fontSize: 18,
-          ), // Para subtítulos
+            fontSize: 14,
+            color: Colors.black54,
+          ),
         ),
       ),
-      home: CVScreen(),
+      home: const CVScreen(),
     );
   }
 }
@@ -38,263 +42,369 @@ class CVScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Row(
-        children: [
-          // Sidebar
-          Container(width: 300, color: Color(0xFF2D2D2D), child: Sidebar()),
-          // Contenido principal
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: MainContent(),
-            ),
-          ),
+        children: const [
+          SizedBox(width: 320, child: LeftPanel()),
+          Expanded(child: RightPanel()),
         ],
       ),
     );
   }
 }
 
-class Sidebar extends StatelessWidget {
-  const Sidebar({super.key});
+class LeftPanel extends StatelessWidget {
+  const LeftPanel({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(16.0),
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(20),
-            child: CircleAvatar(
-              maxRadius: 100,
+    return Container(
+      color: const Color(0xFF27374D),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const CircleAvatar(
+              radius: 70,
               backgroundImage: NetworkImage(
-                'https://images.pexels.com/photos/3785079/pexels-photo-3785079.jpeg?cs=srgb&dl=pexels-olly-3785079.jpg&fm=jpg',
+                'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg',
               ),
             ),
-          ),
-
-          Text('Marketing Manager', style: TextStyle(color: Color(0xFF757575))),
-          Text('123-456-7890', style: TextStyle(color: Colors.white)),
-          Text('email@example.com', style: TextStyle(color: Colors.white)),
-          SectionTitle(
-            title: 'Educación',
-            color: Colors.black,
-            bgColor: Colors.white,
-            icon: Icons.school,
-          ),
-          EducationList(),
-          SectionTitle(
-            title: 'Habilidades',
-            color: Colors.black,
-            bgColor: Colors.white,
-            icon: Icons.psychology,
-          ),
-          SkillsList(),
-          SectionTitle(
-            title: 'Lenguajes',
-            color: Colors.black,
-            bgColor: Colors.white,
-            icon: Icons.language,
-          ),
-          LanguagesList(),
-        ],
+            const SizedBox(height: 20),
+            _buildContactSection(),
+            const SizedBox(height: 20),
+            _buildAboutMe(),
+            const SizedBox(height: 20),
+            _buildLanguages(),
+            const SizedBox(height: 20),
+            _buildSkills(),
+          ],
+        ),
       ),
     );
   }
-}
 
-class MainContent extends StatelessWidget {
-  const MainContent({super.key});
+  Widget _buildContactSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: const [
+        SectionHeader(title: 'CONTACT'),
+        ContactInfo(icon: Icons.phone, text: '+123-456-7890'),
+        ContactInfo(icon: Icons.email, text: 'hello@reallygreatsite.com'),
+        ContactInfo(icon: Icons.language, text: 'www.reallygreatsite.com'),
+        ContactInfo(icon: Icons.location_on, text: '123 Anywhere St, Any City'),
+      ],
+    );
+  }
 
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildAboutMe() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: const [
+        SectionHeader(title: 'ABOUT ME'),
+        Text(
+          "I bring a dynamic blend of strategic vision, hands-on execution, and a results-centric mindset. As a Strategic Marketing Dynamo, I not only survive but thrive in the fast-paced and dynamic landscape of the marketing realm.",
+          style: TextStyle(color: Colors.white70, fontSize: 14, height: 1.5),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildLanguages() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SectionTitle(
-          title: 'Acerca de mí',
-          color: Colors.white,
-          bgColor: Colors.black,
-          icon: Icons.person,
-        ),
-        Text('Texto descriptivo sobre la persona...'),
-        SectionTitle(
-          title: 'Experiencia',
-          color: Colors.white,
-          bgColor: Colors.black,
-          icon: Icons.business_center,
-        ),
-        ExperienceList(),
-        SectionTitle(
-          title: 'Referencias',
-          color: Colors.white,
-          bgColor: Colors.black,
-          icon: Icons.menu_book,
-        ),
-        ReferencesList(),
+        const SectionHeader(title: 'LANGUAGES'),
+        const SizedBox(height: 10),
+        const LanguageItem(language: 'English', level: 0.95),
+        const LanguageItem(language: 'Arabic', level: 0.9),
+        const LanguageItem(language: 'German', level: 0.7),
+        const LanguageItem(language: 'French', level: 0.8),
+      ],
+    );
+  }
+
+  Widget _buildSkills() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SectionHeader(title: 'SKILLS'),
+        const SizedBox(height: 10),
+        const SkillBar(text: 'Professional', value: 0.95),
+        const SkillBar(text: 'Teamwork', value: 0.9),
+        const SkillBar(text: 'Flexibility', value: 0.85),
+        const SkillBar(text: 'Creativity', value: 0.8),
+        const SkillBar(text: 'Management', value: 0.9),
+        const SkillBar(text: 'Organization', value: 0.85),
       ],
     );
   }
 }
 
-class SectionTitle extends StatelessWidget {
-  final String title;
-  final Color color;
-  final Color bgColor;
-  final IconData? icon;
+class RightPanel extends StatelessWidget {
+  const RightPanel({super.key});
 
-  const SectionTitle({
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 40),
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('SAMIRA HADID', style: Theme.of(context).textTheme.headlineLarge),
+            const Text('Marketing Manager', style: TextStyle(color: Colors.grey, fontSize: 18)),
+            const SizedBox(height: 30),
+            const SectionHeader(title: 'EDUCATION', darkMode: false),
+            const EducationItem(
+              institution: 'Wardiere University',
+              period: '2034 - 2036',
+              degree: 'Master Degree in Business Management',
+              gpa: 'GPA: 3.92 / 4.0',
+            ),
+            const EducationItem(
+              institution: 'Wardiere University',
+              period: '2030 - 2034',
+              degree: 'Bachelor Degree in Business Management',
+              gpa: 'GPA: 3.79 / 4.0',
+            ),
+            const SizedBox(height: 30),
+            const SectionHeader(title: 'WORK EXPERIENCE', darkMode: false),
+            const ExperienceItem(
+              company: 'Borcelle Studio',
+              period: '2044 - Now',
+              role: 'Marketing Manager',
+              description:
+                  'Lead, mentor, and manage a high performing marketing team, fostering a collaborative and intent work environment.',
+            ),
+            const ExperienceItem(
+              company: 'Fauget Studio',
+              period: '2034 - 2044',
+              role: 'Marketing Manager',
+              description:
+                  'Lead, mentor, and manage a high performing marketing team, fostering a collaborative and intent work environment.',
+            ),
+            const ExperienceItem(
+              company: 'Studio Showde',
+              period: '2030 - 2034',
+              role: 'Marketing Manager',
+              description:
+                  'Lead, mentor, and manage a high performing marketing team, fostering a collaborative and intent work environment.',
+            ),
+            const SizedBox(height: 30),
+            const SectionHeader(title: 'AWARDS', darkMode: false),
+            const AwardItem(
+              title: 'Excellence Award',
+              date: 'June 2040',
+              description:
+                  'I am happily honored for my dedication and collaborative approach in each campaign.',
+            ),
+            const AwardItem(
+              title: 'Excellence Award',
+              date: 'June 2035',
+              description:
+                  'I am happily honored for my dedication and collaborative approach in each campaign.',
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class SectionHeader extends StatelessWidget {
+  final String title;
+  final bool darkMode;
+
+  const SectionHeader({
     super.key,
     required this.title,
-    this.color = Colors.black,
-    this.bgColor = Colors.white,
-    this.icon,
+    this.darkMode = true,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final Color lineColor = darkMode ? Colors.white : Colors.blueGrey;
+    final Color textColor = darkMode ? Colors.white : Colors.blueGrey;
+
+    return Padding(
+      padding: const EdgeInsets.only(top: 20, bottom: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            '// $title',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: textColor,
+              letterSpacing: 1.2,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Container(
+            height: 3,
+            width: double.infinity,
+            color: lineColor,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class ContactInfo extends StatelessWidget {
+  final IconData icon;
+  final String text;
+
+  const ContactInfo({super.key, required this.icon, required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 6),
+      child: Row(
+        children: [
+          Icon(icon, color: Colors.white, size: 18),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Text(text, style: const TextStyle(color: Colors.white70, fontSize: 14)),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class LanguageItem extends StatelessWidget {
+  final String language;
+  final double level;
+
+  const LanguageItem({super.key, required this.language, required this.level});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 6),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(language, style: const TextStyle(color: Colors.white, fontSize: 14)),
+          LinearProgressIndicator(
+            value: level,
+            color: Colors.white,
+            backgroundColor: Colors.white24,
+            minHeight: 6,
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class SkillBar extends StatelessWidget {
+  final String text;
+  final double value;
+
+  const SkillBar({super.key, required this.text, required this.value});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(text, style: const TextStyle(color: Colors.white, fontSize: 14)),
+          const SizedBox(height: 4),
+          LinearProgressIndicator(
+            value: value,
+            color: Colors.white,
+            backgroundColor: Colors.white24,
+            minHeight: 6,
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class EducationItem extends StatelessWidget {
+  final String institution;
+  final String period;
+  final String degree;
+  final String gpa;
+
+  const EducationItem({
+    super.key,
+    required this.institution,
+    required this.period,
+    required this.degree,
+    required this.gpa,
   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(0, 20, 0, 8),
+      padding: const EdgeInsets.only(bottom: 14),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          CircleAvatar(
-            backgroundColor: bgColor,
-            maxRadius: 15,
-            child: Icon(icon, size: 20, color: color),
-          ),
-          SizedBox(width: 10),
-          Text(
-            title,
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              color: bgColor,
-            ),
-          ),
+          Text(institution, style: const TextStyle(fontWeight: FontWeight.bold)),
+          Text(period, style: const TextStyle(color: Colors.grey)),
         ],
       ),
     );
   }
 }
 
-class SkillItem extends StatelessWidget {
-  final IconData icon;
-  final String text;
+class ExperienceItem extends StatelessWidget {
+  final String company;
+  final String period;
+  final String role;
+  final String description;
 
-  const SkillItem({super.key, required this.icon, required this.text});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Icon(icon, size: 20, color: Colors.white),
-        SizedBox(width: 8),
-        Text(text, style: TextStyle(fontSize: 16, color: Colors.white)),
-      ],
-    );
-  }
-}
-
-class EducationList extends StatelessWidget {
-  const EducationList({super.key});
+  const ExperienceItem({
+    super.key,
+    required this.company,
+    required this.period,
+    required this.role,
+    required this.description,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: 20),
+      padding: const EdgeInsets.only(bottom: 14),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Boreal University',
-            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
-          ),
-          Text(
-            'Bachelor of Business Management, 2012 - 2016',
-            style: TextStyle(color: Colors.white),
-          ),
-          // Añadir más entradas de educación según sea necesario
+          Text('$company  ($period)', style: const TextStyle(fontWeight: FontWeight.bold)),
+          Text(role, style: const TextStyle(fontSize: 14)),
+          Text(description, style: const TextStyle(color: Colors.black54, height: 1.5)),
         ],
       ),
     );
   }
 }
 
-class ExperienceList extends StatelessWidget {
-  const ExperienceList({super.key});
+class AwardItem extends StatelessWidget {
+  final String title;
+  final String date;
+  final String description;
+
+  const AwardItem({super.key, required this.title, required this.date, required this.description});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: 20),
+      padding: const EdgeInsets.only(bottom: 10),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Product Design Manager, 2020 - Present',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          Text('ABC Corp, Any City'),
-          // Añadir más experiencias según sea necesario
-          Text(
-            'Marketing Manager, 2018 - 2020',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          Text('XYZ Ltd, Any City'),
-          // Agregar más elementos aquí si es necesario
-        ],
-      ),
-    );
-  }
-}
-
-class SkillsList extends StatelessWidget {
-  const SkillsList({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(left: 20),
-      child: Column(
-        children: [
-          SkillItem(icon: Icons.code, text: 'Flutter'),
-          SkillItem(icon: Icons.design_services, text: 'UI/UX Design'),
-          SkillItem(icon: Icons.business_center, text: 'Project Management'),
-          // Agregar más habilidades según sea necesario
-        ],
-      ),
-    );
-  }
-}
-
-class LanguagesList extends StatelessWidget {
-  const LanguagesList({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(left: 20),
-      child: Column(
-        children: [
-          Text('Inglés - Fluido', style: TextStyle(color: Colors.white)),
-          Text('Español - Conversacional', style: TextStyle(color: Colors.white)),
-          // Agregar más lenguajes según sea necesario
-        ],
-      ),
-    );
-  }
-}
-
-class ReferencesList extends StatelessWidget {
-  const ReferencesList({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(left: 20),
-      child: Column(
-        children: [
-          Text('Harumi Kobayashi, Wordnerd Inc.'),
-          Text('Bailey Dubont, Great Solutions Inc.'),
-          // Agregar más referencias si es necesario
+          Text('$title  •  $date', style: const TextStyle(fontWeight: FontWeight.bold)),
+          Text(description, style: const TextStyle(color: Colors.black54)),
         ],
       ),
     );
