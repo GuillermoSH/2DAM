@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    url: jdbc:sqlite:memory:hotel_puerto?cache=share
+    driver-class-name: org.sqlite.JDBC
+  jpa:
+    database-platform: org.hibernate.community.dialect.SQLiteDialect
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+  sql:
+    init:
+      mode: never

@@ -6,51 +6,73 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import java.awt.print.Book;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @ActiveProfiles("test")
-public class BookingJpaRepositoryTest {
+class BookingJpaRepositoryTest {
     @Autowired
-    private BookingJpaSpringRepository bookingRepository;
+    private static BookingJpaSpringRepository bookingRepository;
     @Autowired
-    private RoomJpaSpringRepository roomRepository;
+    private static RoomJpaSpringRepository roomRepository;
     @Autowired
-    private GuestJpaSpringRepository guestRepository;
+    private static GuestJpaSpringRepository guestRepository;
 
-    private Room testRoom;
-    private Guest testGuest;
-    private Hotel testHotel;
+    @Autowired
+    private static HotelJpaSpringRepository hotelRepository;
 
-    @BeforeEach
-    void setUp() {
+    private Room room;
+    private Guest guest;
+    private Hotel hotel;
+    private Booking booking;
+
+    @BeforeAll
+    static void setUp() {
         guestRepository.deleteAll();
         roomRepository.deleteAll();
         bookingRepository.deleteAll();
+        hotelRepository.deleteAll();
+    }
 
-        testHotel = new Hotel();
-        testHotel.setId("H1");
-        testHotel.setName("Hotel Central");
-        testHotel.setAddress("Calle Principal 23");
+    @BeforeEach
+    void beforeEach() {
+        hotel = new Hotel("H1", "Hotel Central", "Calle Principal 25", null);
+        hotelRepository.save(hotel);
 
-        testGuest = new Guest("g1", "Juan Perez", "juan@test.com", "666111222");
-        guestRepository.save(testGuest);
+        guest = new Guest("G1", "Juan Perez", "juan@test.com", "666111222");
+        guestRepository.save(guest);
 
-        testRoom = new Room("r1", "101", "single", 100f, testHotel);
-        roomRepository.save(testRoom);
+        room = new Room("R1", "101", "single", 100f, hotel);
+        roomRepository.save(room);
+
+        booking = new Booking("B1", room, guest, "2025-01-01", "2025-01-05");
+        bookingRepository.save(booking);
     }
 
     @Test
     void testSaveBooking() {
-        Booking booking = new Booking();
-        booking.setId("b1");
-        booking.setGuest(testGuest);
-        booking.setRoom(testRoom);
-        booking.setCheckIn("2025-01-01");
-        booking.setCheckOut("2025-01-05");
+        Booking bookingTest = new Booking("B2", room, guest, "2025-02-01", "2025-02-04");
+        bookingRepository.save(bookingTest);
+        assertTrue(bookingRepository.findById("B2").isPresent());
+    }
 
-        bookingRepository.save(booking);
+    @Test
+    void testFindByIdBooking() {
+        assertTrue(bookingRepository.findById("B1").isPresent());
+    }
 
-        assertThat(bookingRepository.findById("b1")).isPresent();
+    @Test
+    void testFindAll() {
+        assertFalse(bookingRepository.findAll().isEmpty());
+    }
+
+    @Test
+    void testDeleteBooking() {
+        Booking bookingTest = new Booking("B2", room, guest, "2025-02-01", "2025-02-04");
+        bookingRepository.save(bookingTest);
+        bookingRepository.delete(bookingTest);
+        assertTrue(bookingRepository.findById("B2").isEmpty());
     }
 }
