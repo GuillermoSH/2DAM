@@ -35,4 +35,14 @@ public abstract class JpaAbstractRepository<T, ID> {
     public void deleteById(ID id) {
         repository.deleteById(id);
     }
+
+    @Transactional
+    public void deleteAll() {
+        repository.deleteAll();
+    }
+
+    @Transactional
+    public void delete(T entity) {
+        repository.delete(entity);
+    }
 }

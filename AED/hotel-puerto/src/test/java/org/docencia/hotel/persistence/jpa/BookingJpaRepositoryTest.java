@@ -7,21 +7,26 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.awt.print.Book;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @ActiveProfiles("test")
 class BookingJpaRepositoryTest {
     @Autowired
-    private static BookingJpaSpringRepository bookingRepository;
+    private BookingJpaRepository bookingRepository;
     @Autowired
-    private static RoomJpaSpringRepository roomRepository;
+    private RoomJpaSpringRepository roomRepository;
     @Autowired
-    private static GuestJpaSpringRepository guestRepository;
+    private GuestJpaSpringRepository guestRepository;
 
     @Autowired
-    private static HotelJpaSpringRepository hotelRepository;
+    private HotelJpaSpringRepository hotelRepository;
 
     private Room room;
     private Guest guest;
@@ -29,7 +34,7 @@ class BookingJpaRepositoryTest {
     private Booking booking;
 
     @BeforeAll
-    static void setUp() {
+    void setUp() {
         guestRepository.deleteAll();
         roomRepository.deleteAll();
         bookingRepository.deleteAll();
@@ -38,7 +43,7 @@ class BookingJpaRepositoryTest {
 
     @BeforeEach
     void beforeEach() {
-        hotel = new Hotel("H1", "Hotel Central", "Calle Principal 25", null);
+        hotel = new Hotel("H1", "Hotel Central", "Calle Principal 25", new HashSet<>());
         hotelRepository.save(hotel);
 
         guest = new Guest("G1", "Juan Perez", "juan@test.com", "666111222");
@@ -55,7 +60,7 @@ class BookingJpaRepositoryTest {
     void testSaveBooking() {
         Booking bookingTest = new Booking("B2", room, guest, "2025-02-01", "2025-02-04");
         bookingRepository.save(bookingTest);
-        assertTrue(bookingRepository.findById("B2").isPresent());
+        assertTrue(bookingRepository.existsById("B2"));
     }
 
     @Test
@@ -73,6 +78,20 @@ class BookingJpaRepositoryTest {
         Booking bookingTest = new Booking("B2", room, guest, "2025-02-01", "2025-02-04");
         bookingRepository.save(bookingTest);
         bookingRepository.delete(bookingTest);
-        assertTrue(bookingRepository.findById("B2").isEmpty());
+        assertFalse(bookingRepository.existsById("B2"));
+    }
+
+    @Test
+    void testDeleteByIdBooking() {
+        Booking bookingTest = new Booking("B3", room, guest, "2025-03-01", "2025-03-04");
+        bookingRepository.save(bookingTest);
+        bookingRepository.deleteById(bookingTest.getId());
+        assertFalse(bookingRepository.existsById("B3"));
+    }
+
+    @Test
+    void testFindByRoomAndDateRangeTest() {
+        List<Booking> bookings = bookingRepository.findByRoomAndDateRange("R1", "2025-01-01", "2025-05-01");
+        assertFalse(bookings.isEmpty());
     }
 }
