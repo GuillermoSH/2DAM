@@ -1,6 +1,6 @@
 package com.docencia.repo;
 
-import com.docencia.model.Note;
+import com.docencia.domain.model.Note;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

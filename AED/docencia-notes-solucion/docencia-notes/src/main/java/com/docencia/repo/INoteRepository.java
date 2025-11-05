@@ -1,6 +1,6 @@
 package com.docencia.repo;
 
-import com.docencia.model.Note;
+import com.docencia.domain.model.Note;
 import java.util.List;
 
 /**

@@ -1,6 +1,6 @@
 package com.docencia.repo.jpa;
 
-import com.docencia.model.Note;
+import com.docencia.domain.model.Note;
 import com.docencia.repo.INoteRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

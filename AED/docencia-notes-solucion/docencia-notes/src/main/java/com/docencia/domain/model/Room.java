@@ -21,7 +21,7 @@ public class Room {
     private String type;
 
     @Column(name = "price_per_night")
-    private Long pricePerNight;
+    private Float pricePerNight;
 
     @ManyToOne
     @Column(name = "hotel_id")
