@@ -26,6 +26,7 @@ public class Booking {
     @Column(name = "check_in")
     private String checkIn;
 
+    
     @Column(name = "check_out")
     private String checkOut;
 }
