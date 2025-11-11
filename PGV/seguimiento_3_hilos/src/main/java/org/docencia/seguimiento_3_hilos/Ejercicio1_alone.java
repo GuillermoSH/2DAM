@@ -41,47 +41,53 @@ public class Ejercicio1_alone {
         }
     }
 
-    private void pikachu() {
-        while (!endGame) {
-            lock.lock();
-            try {
-                while (!turn.equals("Pikachu") && !endGame) {
-                    turnChange.await();
+    private class Pikachu implements Runnable {
+        @Override
+        public void run() {
+            while (!endGame) {
+                lock.lock();
+                try {
+                    while (!turn.equals("Pikachu") && !endGame) {
+                        turnChange.await();
+                    }
+                    if (endGame) break;
+                    attack("Pikachu");
+                    turn = "Charmander";
+                    turnChange.signal();
+                } catch (Exception e) {
+                    Thread.currentThread().interrupt();
+                } finally {
+                    lock.unlock();
                 }
-                if (endGame) break;
-                attack("Pikachu");
-                turn = "Charmander";
-                turnChange.signal();
-            } catch (Exception e) {
-                Thread.currentThread().interrupt();
-            } finally {
-                lock.unlock();
             }
         }
     }
 
-    private void charmander() {
-        while (!endGame) {
-            lock.lock();
-            try {
-                while (!turn.equals("Charmander") && !endGame) {
-                    turnChange.await();
+    private class Charmander implements Runnable {
+        @Override
+        public void run() {
+            while (!endGame) {
+                lock.lock();
+                try {
+                    while (!turn.equals("Charmander") && !endGame) {
+                        turnChange.await();
+                    }
+                    if (endGame) break;
+                    attack("Charmander");
+                    turn = "Pikachu";
+                    turnChange.signal();
+                } catch (Exception e) {
+                    Thread.currentThread().interrupt();
+                } finally {
+                    lock.unlock();
                 }
-                if (endGame) break;
-                attack("Charmander");
-                turn = "Pikachu";
-                turnChange.signal();
-            } catch (Exception e) {
-                Thread.currentThread().interrupt();
-            } finally {
-                lock.unlock();
             }
         }
     }
 
     public void start() {
-        Thread pikachu = new Thread(this::pikachu);
-        Thread charmander = new Thread(this::charmander);
+        Thread pikachu = new Thread(new Pikachu());
+        Thread charmander = new Thread(new Charmander());
         pikachu.start();
         charmander.start();
         try {
