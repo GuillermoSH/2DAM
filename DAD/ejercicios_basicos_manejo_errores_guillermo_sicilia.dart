@@ -45,7 +45,7 @@ void main() async {
   print("\n-----------------------Ejercicio 03-----------------------");
   try {
     var numero = int.parse("abc");
-  } on FormatException catch (e) {
+  } on FormatException {
     print("No se puede convertir una letra a un número");
   }
 

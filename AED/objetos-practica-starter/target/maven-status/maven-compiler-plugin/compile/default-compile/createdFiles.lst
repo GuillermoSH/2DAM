@@ -1,0 +1,8 @@
+com\docencia\objetos\DemoApplication.class
+com\docencia\objetos\domain\Alumno.class
+com\docencia\objetos\service\AlumnoService.class
+com\docencia\objetos\repo\AlumnoRepositoryJpaAdapter.class
+com\docencia\objetos\repo\AlumnoRepository.class
+com\docencia\objetos\repo\jpa\AlumnoJpaRepository.class
+com\docencia\objetos\repo\jpa\AlumnoEntity.class
+com\docencia\objetos\config\H2ServerConfig.class

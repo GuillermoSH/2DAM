@@ -112,7 +112,7 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(title: Text("Strawberry Pavlova Recipe")),
         body: Center(
-          child: Container(
+          child: SizedBox(
             height: 600,
             child: Card(
               shadowColor: Color.fromARGB(100, 0, 0, 0),
