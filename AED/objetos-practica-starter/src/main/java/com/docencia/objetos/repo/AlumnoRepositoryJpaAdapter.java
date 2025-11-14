@@ -1,6 +1,7 @@
 package com.docencia.objetos.repo;
 
 import com.docencia.objetos.domain.Alumno;
+import com.docencia.objetos.mapper.AlumnoMapperUtils;
 import com.docencia.objetos.repo.jpa.AlumnoEntity;
 import com.docencia.objetos.repo.jpa.AlumnoJpaRepository;
 import org.springframework.context.annotation.Profile;
@@ -13,41 +14,44 @@ import java.util.Optional;
 @Profile("h2")
 public class AlumnoRepositoryJpaAdapter implements AlumnoRepository {
 
-  private final AlumnoJpaRepository jpa;
+    private final AlumnoJpaRepository jpa;
 
-  public AlumnoRepositoryJpaAdapter(AlumnoJpaRepository jpa) {
-    this.jpa = jpa;
-  }
+    public AlumnoRepositoryJpaAdapter(AlumnoJpaRepository jpa) {
+        this.jpa = jpa;
+    }
 
-  @Override
-  public List<Alumno> findAll() {
-    throw new UnsupportedOperationException("TODO: implementar usando jpa.findAll() y mapear a dominio");
-  }
+    @Override
+    public List<Alumno> findAll() {
+        return AlumnoMapperUtils.to(jpa.findAll());
+    }
 
-  @Override
-  public Optional<Alumno> findById(Long id) {
-    throw new UnsupportedOperationException("TODO: implementar usando jpa.findById() y mapear a dominio");
-  }
+    @Override
+    public Optional<Alumno> findById(Long id) {
+        return AlumnoMapperUtils.to(jpa.findById(id));
+    }
 
-  @Override
-  public Alumno save(Alumno alumno) {
-    throw new UnsupportedOperationException("TODO: mapear dominio->entidad, jpa.save, entidad->dominio");
-  }
+    @Override
+    public Alumno save(Alumno alumno) {
+        return AlumnoMapperUtils.to(jpa.save(AlumnoMapperUtils.to(alumno)));
+    }
 
-  @Override
-  public boolean existsByEmail(String email) {
-    throw new UnsupportedOperationException("TODO: implementar (método derivado en JPA o consulta)");
-  }
+    @Override
+    public boolean existsByEmail(String email) {
+        return jpa.existsByEmail(email);
+    }
 
-  @Override
-  public void deleteById(Long id) {
-    throw new UnsupportedOperationException("TODO: implementar jpa.deleteById(id)");
-  }
+    @Override
+    public void deleteById(Long id) {
+        jpa.deleteById(id);
+    }
 
-  @Override
-  public long count() {
-    throw new UnsupportedOperationException("TODO: implementar jpa.count()");
-  }
+    @Override
+    public void delete(Alumno alumno) {
+        jpa.delete(AlumnoMapperUtils.to(alumno));
+    }
 
-  // TODO: métodos de mapeo toDomain/toEntity
+    @Override
+    public long count() {
+        return jpa.count();
+    }
 }
