@@ -1,3 +1,5 @@
+package com.docencia.semaforo;
+
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicBoolean;
