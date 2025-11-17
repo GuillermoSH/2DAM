@@ -1,0 +1,15 @@
+/home/dam/Documentos/ejercicio-1-evaluacion-aed/ejercicio-1-evaluacion-aed/src/main/java/com/docencia/objetos/DemoApplication.java
+/home/dam/Documentos/ejercicio-1-evaluacion-aed/ejercicio-1-evaluacion-aed/src/main/java/com/docencia/objetos/config/H2ServerConfig.java
+/home/dam/Documentos/ejercicio-1-evaluacion-aed/ejercicio-1-evaluacion-aed/src/main/java/com/docencia/objetos/domain/Alumno.java
+/home/dam/Documentos/ejercicio-1-evaluacion-aed/ejercicio-1-evaluacion-aed/src/main/java/com/docencia/objetos/domain/Rol.java
+/home/dam/Documentos/ejercicio-1-evaluacion-aed/ejercicio-1-evaluacion-aed/src/main/java/com/docencia/objetos/mapper/AlumnoMapper.java
+/home/dam/Documentos/ejercicio-1-evaluacion-aed/ejercicio-1-evaluacion-aed/src/main/java/com/docencia/objetos/mapper/RolMapper.java
+/home/dam/Documentos/ejercicio-1-evaluacion-aed/ejercicio-1-evaluacion-aed/src/main/java/com/docencia/objetos/repo/AlumnoRepositoryJpaAdapter.java
+/home/dam/Documentos/ejercicio-1-evaluacion-aed/ejercicio-1-evaluacion-aed/src/main/java/com/docencia/objetos/repo/interfaces/AlumnoRepository.java
+/home/dam/Documentos/ejercicio-1-evaluacion-aed/ejercicio-1-evaluacion-aed/src/main/java/com/docencia/objetos/repo/interfaces/RolRepository.java
+/home/dam/Documentos/ejercicio-1-evaluacion-aed/ejercicio-1-evaluacion-aed/src/main/java/com/docencia/objetos/repo/jpa/AlumnoEntity.java
+/home/dam/Documentos/ejercicio-1-evaluacion-aed/ejercicio-1-evaluacion-aed/src/main/java/com/docencia/objetos/repo/jpa/AlumnoJpaRepository.java
+/home/dam/Documentos/ejercicio-1-evaluacion-aed/ejercicio-1-evaluacion-aed/src/main/java/com/docencia/objetos/repo/jpa/RolEntity.java
+/home/dam/Documentos/ejercicio-1-evaluacion-aed/ejercicio-1-evaluacion-aed/src/main/java/com/docencia/objetos/repo/jpa/RolJpaRepository.java
+/home/dam/Documentos/ejercicio-1-evaluacion-aed/ejercicio-1-evaluacion-aed/src/main/java/com/docencia/objetos/repo/json/RolJsonFileRepository.java
+/home/dam/Documentos/ejercicio-1-evaluacion-aed/ejercicio-1-evaluacion-aed/src/main/java/com/docencia/objetos/service/AlumnoService.java
