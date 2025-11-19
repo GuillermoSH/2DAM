@@ -18,16 +18,6 @@ class MyApp extends StatelessWidget {
           seedColor: Colors.blue,
           brightness: Brightness.light,
         ),
-        textTheme: TextTheme(
-          headlineMedium: TextStyle(fontSize: 26, color: Colors.pink),
-          bodyLarge: TextStyle(fontSize: 16, color: Colors.blue),
-        ),
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ButtonStyle(
-            backgroundColor: WidgetStateProperty.all(Colors.red),
-            foregroundColor: WidgetStateProperty.all(Colors.white),
-          ),
-        ),
       ),
     );
   }
@@ -38,11 +28,12 @@ class Material3Page extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final palette = Theme.of(context).colorScheme;
     return Scaffold(
       appBar: AppBar(title: const Text("Material 3")),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.arrow_back),
       ),
       body: Padding(
         padding: const EdgeInsets.all(10),
@@ -50,7 +41,20 @@ class Material3Page extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ElevatedButton(onPressed: () => {}, child: Text("Botón")),
+              Text("Hola", style: TextStyle(color: palette.primary)),
+              Icon(Icons.star, color: palette.primary),
+              ElevatedButton(onPressed: () => {}, child: Text("Enviar")),
+              Theme(
+                data: Theme.of(context).copyWith(
+                  elevatedButtonTheme: ElevatedButtonThemeData(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.red,
+                      foregroundColor: Colors.white,
+                    ),
+                  ),
+                ),
+                child: ElevatedButton(onPressed: () => {}, child: Text("Hola")),
+              ),
             ],
           ),
         ),
