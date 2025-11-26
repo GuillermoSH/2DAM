@@ -1,4 +1,11 @@
 package com.docencia.rest.repository;
 
-public interface ProductoRelationalRepository {
+import com.docencia.rest.model.DetalleProducto;
+
+import java.util.Optional;
+
+public interface DetalleProductoRepository {
+    Optional<DetalleProducto> findByProductoId(int productoId);
+    DetalleProducto save(int productoId, DetalleProducto detalle);
+    boolean deleteByProductoId(int productoId);
 }

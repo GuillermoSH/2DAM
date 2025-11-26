@@ -3,10 +3,24 @@ import React, { useContext, useEffect, useState } from "react";
 import { Button, Text, TextInput, View } from "react-native";
 import { AuthContext } from "../context/AuthContext";
 
+type Group = {
+  id: string;
+  name: string;
+}
+
 export default function Home() {
   const { token, logout } = useContext(AuthContext);
   const router = useRouter();
-  const [groups, setGroups] = useState(["Grupo1", "Grupo2"]);
+  const [groups, setGroups] = useState<Group[]>([
+    {
+      id: "1",
+      name: "Grupo 1",
+    },
+    {
+      id: "2",
+      name: "Grupo 2",
+    },
+  ]);
 
   useEffect(() => {
     if (!token) {
@@ -17,13 +31,13 @@ export default function Home() {
   if (!token) return null;
 
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    <View style={{ flex: 1, justifyContent: "center", gap: 10, alignItems: "center" }}>
       <Text>Sus Grupos</Text>
       <TextInput placeholder="Agregue su grupo"></TextInput>
       <Button title="Registrar"></Button>
-      {groups.map((e) => (
-        <View key={e}>
-          <Text onPress={() => router.replace("/groupdetail")}>{e}</Text>
+      {groups.map((group) => (
+        <View key={group.id}>
+          <Text onPress={() => router.replace("/groupdetail")}>{group.name}</Text>
         </View>
       ))}
       <Button title="Cerrar sesión" onPress={() => void logout()} />
