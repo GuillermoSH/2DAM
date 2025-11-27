@@ -1,6 +1,7 @@
 package com.docencia.rest.service;
 
 import com.docencia.rest.model.Producto;
+import com.docencia.rest.repository.DetalleProductoRepository;
 import com.docencia.rest.repository.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,10 +13,16 @@ import java.util.Optional;
 public class ProductoService implements ProductoServiceInterface {
 
     private ProductoRepository productoRepository;
+    private DetalleProductoRepository detalleProductoRepository;
 
     @Autowired
     public void setProductoRepository(ProductoRepository productoRepository) {
         this.productoRepository = productoRepository;
+    }
+
+    @Autowired
+    public void setDetalleProductoRepository(DetalleProductoRepository detalleProductoRepository) {
+        this.detalleProductoRepository = detalleProductoRepository;
     }
 
     @Override

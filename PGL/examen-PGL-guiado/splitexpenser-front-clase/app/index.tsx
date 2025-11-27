@@ -37,7 +37,7 @@ export default function Home() {
       <Button title="Registrar"></Button>
       {groups.map((group) => (
         <View key={group.id}>
-          <Text onPress={() => router.replace("/groupdetail")}>{group.name}</Text>
+          <Text onPress={() => router.replace("/group/" + group.id)}>{group.name}</Text>
         </View>
       ))}
       <Button title="Cerrar sesión" onPress={() => void logout()} />

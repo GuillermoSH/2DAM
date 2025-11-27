@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.docencia</groupId>
-	<artifactId>spring-rest-producto</artifactId>
+	<artifactId>spring-rest-productoEntity</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>rest</name>

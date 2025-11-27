@@ -1,17 +1,12 @@
-package com.docencia.rest.model;
-
-import jakarta.persistence.*;
-import org.springframework.data.mongodb.core.mapping.Document;
+package com.docencia.rest.domain;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-@Document(collection = "producto_detalle")
 public class DetalleProducto {
-    @Id
-    private String id;
-    private Long productoId;
+    private int id;
+    private int productoId;
     private String descripcionLarga;
     private Map<String, String> especificacionesTecnicas;
     private List<String> tags;
@@ -19,11 +14,11 @@ public class DetalleProducto {
     public DetalleProducto() {
     }
 
-    public DetalleProducto(String id) {
+    public DetalleProducto(int id) {
         this.id = id;
     }
 
-    public DetalleProducto(String id, Long productoId, String descripcionLarga, Map<String, String> especificacionesTecnicas, List<String> tags) {
+    public DetalleProducto(int id, int productoId, String descripcionLarga, Map<String, String> especificacionesTecnicas, List<String> tags) {
         this.id = id;
         this.productoId = productoId;
         this.descripcionLarga = descripcionLarga;
@@ -31,19 +26,19 @@ public class DetalleProducto {
         this.tags = tags;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public Long getProductoId() {
+    public int getProductoId() {
         return productoId;
     }
 
-    public void setProductoId(Long productoId) {
+    public void setProductoId(int productoId) {
         this.productoId = productoId;
     }
 
@@ -75,12 +70,12 @@ public class DetalleProducto {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         DetalleProducto that = (DetalleProducto) o;
-        return Objects.equals(id, that.id) && Objects.equals(productoId, that.productoId) && Objects.equals(descripcionLarga, that.descripcionLarga) && Objects.equals(especificacionesTecnicas, that.especificacionesTecnicas) && Objects.equals(tags, that.tags);
+        return Objects.equals(id, that.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, productoId, descripcionLarga, especificacionesTecnicas, tags);
+        return Objects.hash(id);
     }
 
     @Override

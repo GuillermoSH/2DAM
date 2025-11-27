@@ -1,35 +1,23 @@
-package com.docencia.rest.model;
-
-import com.docencia.rest.domain.DetalleProducto;
-import jakarta.persistence.*;
+package com.docencia.rest.domain;
 
 import java.math.BigDecimal;
 import java.util.Objects;
 
-@Entity
-@Table(name = "producto")
-public class Producto {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+public class ProductoEntity {
     private int id;
-
-    @Column(name = "nombre")
     private String nombre;
-
-    @Column(name = "precio")
     private BigDecimal precio;
-
-    @Column(name = "stock")
     private Integer stock;
+    private DetalleProducto detallesProducto;
 
-    public Producto() {
+    public ProductoEntity() {
     }
 
-    public Producto(int id) {
+    public ProductoEntity(int id) {
         this.id = id;
     }
 
-    public Producto(int id, String nombre, BigDecimal precio, Integer stock) {
+    public ProductoEntity(int id, String nombre, BigDecimal precio, Integer stock) {
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
@@ -71,8 +59,8 @@ public class Producto {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        Producto producto = (Producto) o;
-        return id == producto.id && Objects.equals(nombre, producto.nombre) && Objects.equals(precio, producto.precio) && Objects.equals(stock, producto.stock);
+        ProductoEntity productoEntity = (ProductoEntity) o;
+        return id == productoEntity.id && Objects.equals(nombre, productoEntity.nombre) && Objects.equals(precio, productoEntity.precio) && Objects.equals(stock, productoEntity.stock);
     }
 
     @Override

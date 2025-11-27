@@ -1,7 +1,7 @@
 import { useRouter } from "expo-router";
 import React, { useContext, useEffect, useState } from "react";
 import { Button, Text, TextInput, View, Alert } from "react-native";
-import { AuthContext } from "../context/AuthContext";
+import { AuthContext } from "@/context/AuthContext";
 
 type Expense = {
   id: string;
@@ -55,9 +55,9 @@ export default function GroupDetails() {
       <Text style={{ fontSize: 20, fontWeight: "bold" }}>Mi grupo</Text>
       {expenses.map((e) => (
         <View key={e.id} style={{ gap: 5, padding: 10, borderRadius: 10, boxShadow: "0px 5px 10px #CCC", overflow: "hidden" }}>
-          <Text>{`${e.desc} => ${e.amount}, pagado con ${e.paid_by.toLowerCase()}`}</Text>
+          <Text>{`${e.desc} - ${e.amount}: pagado con ${e.paid_by}`}</Text>
           <View style={{ width: "100%", flexDirection: "row", justifyContent: "flex-end", gap: 10 }}>
-            <Button title="Editar" onPress={() => handleEdit(e.id)} />
+            <Button title="Editar" onPress={() => router.push("/group/expenses/" + e.id)} />
             <Button title="Borrar" onPress={() => handleDelete(e.id)} />
           </View>
         </View>

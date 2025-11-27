@@ -6,6 +6,7 @@ import com.docencia.rest.service.UserServiceInterface;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/api/v1")
+@Tag(name = "Usuarios", description = "Operaciones sobre usuarios")
 public class UserController {
 
     private UserServiceInterface userService;
