@@ -1,26 +1,14 @@
-package com.docencia.rest.model;
-
-import com.docencia.rest.domain.DetalleProducto;
-import jakarta.persistence.*;
+package com.docencia.rest.domain;
 
 import java.math.BigDecimal;
 import java.util.Objects;
 
-@Entity
-@Table(name = "producto")
 public class Producto {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-
-    @Column(name = "nombre")
     private String nombre;
-
-    @Column(name = "precio")
     private BigDecimal precio;
-
-    @Column(name = "stock")
     private Integer stock;
+    private DetalleProducto detalleProducto;
 
     public Producto() {
     }
@@ -34,6 +22,14 @@ public class Producto {
         this.nombre = nombre;
         this.precio = precio;
         this.stock = stock;
+    }
+
+    public Producto(int id, String nombre, BigDecimal precio, Integer stock, DetalleProducto detalleProducto) {
+        this.id = id;
+        this.nombre = nombre;
+        this.precio = precio;
+        this.stock = stock;
+        this.detalleProducto = detalleProducto;
     }
 
     public int getId() {
@@ -68,16 +64,24 @@ public class Producto {
         this.stock = stock;
     }
 
+    public DetalleProducto getDetalleProducto() {
+        return detalleProducto;
+    }
+
+    public void setDetalleProducto(DetalleProducto detalleProducto) {
+        this.detalleProducto = detalleProducto;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Producto producto = (Producto) o;
-        return id == producto.id && Objects.equals(nombre, producto.nombre) && Objects.equals(precio, producto.precio) && Objects.equals(stock, producto.stock);
+        return id == producto.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nombre, precio, stock);
+        return Objects.hash(id);
     }
 
     @Override
@@ -87,6 +91,7 @@ public class Producto {
                 ", nombre='" + nombre + '\'' +
                 ", precio=" + precio +
                 ", stock=" + stock +
+                ", detalleProducto=" + detalleProducto +
                 '}';
     }
 }

@@ -11,6 +11,7 @@ type AuthContextType = {
   login: (username: string, password: string) => Promise<any>;
   register: (username: string, password: string) => Promise<any>;
   logout: () => Promise<void>;
+  unregister: (username: string, password: string) => Promise<any>;
 };
 
 export const AuthContext = createContext<AuthContextType>({
@@ -19,6 +20,7 @@ export const AuthContext = createContext<AuthContextType>({
   login: async () => ({}),
   register: async () => ({}),
   logout: async () => {},
+  unregister: async () => ({}),
 });
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
@@ -65,13 +67,37 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
+  const unregister = async (username: string, password: string) => {
+    try {
+      const loginRes = await login(username, password);
+      console.log("Intentando iniciar sesion...");
+      if (!loginRes.access_token) return { ok: false, msg: "Password mismatch" };
+
+      const res = await fetch(`${API_URL}/auth/unregister`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + token,
+        },
+        body: JSON.stringify({ username, password }),
+      });
+      if (res.ok) {
+        console.log("Cerrando sesion")
+        logout();
+      }
+      return { ok: true, msg: "User unregistered"};
+    } catch (err) {
+      return { ok: false, msg: "Network error" };
+    }
+  };
+
   const logout = async () => {
     await SecureStore.deleteItemAsync(TOKEN_KEY);
     setToken(null);
   };
 
   const value = useMemo(
-    () => ({ token, loading, login, register, logout }),
+    () => ({ token, loading, login, register, logout, unregister }),
     [token, loading],
   );
 

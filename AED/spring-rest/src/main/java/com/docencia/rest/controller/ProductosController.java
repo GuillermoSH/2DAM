@@ -1,6 +1,7 @@
 package com.docencia.rest.controller;
 
-import com.docencia.rest.model.Producto;
+import com.docencia.rest.domain.Producto;
+import com.docencia.rest.model.ProductoEntity;
 import com.docencia.rest.service.ProductoServiceInterface;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -39,11 +40,11 @@ public class ProductosController {
     })
     @GetMapping("/{id}")
     public ResponseEntity<Producto> getUserById(@PathVariable(value = "id") Integer productoId) {
-        Producto producto = productoService.findById(productoId).orElse(null);
-        if (producto == null) {
+        Producto productoEntity = productoService.findById(productoId).orElse(null);
+        if (productoEntity == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok().body(producto);
+        return ResponseEntity.ok().body(productoEntity);
     }
 
     @Operation(summary = "Insert producto")
@@ -63,8 +64,8 @@ public class ProductosController {
     })
     @PutMapping("/{id}")
     public ResponseEntity<Producto> updateProducto(@PathVariable(value = "id") int productoId, @Valid @RequestBody Producto producto) {
-        final Producto updatedProducto = productoService.save(producto);
-        return ResponseEntity.ok(updatedProducto);
+        final Producto updatedProductoEntity = productoService.save(producto);
+        return ResponseEntity.ok(updatedProductoEntity);
     }
 
     @Operation(summary = "Delete producto")

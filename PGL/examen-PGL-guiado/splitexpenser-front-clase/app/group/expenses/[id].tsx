@@ -12,16 +12,35 @@ type Expense = {
 
 export default function ExpensesEdit() {
     const { token } = useContext(AuthContext);
-    const [expense, setExpense] = useState<Expense>({
+    const [expense, setExpense] = useState<any>({
         id: "0",
         desc: "prueba",
         amount: "1",
         paid_by: "algo",
     });
+    const [desc, onChangeDesc] = useState<string>(expense.desc);
+    const [amount, onChangeAmount] = useState<string>(expense.amount);
+    const [paidBy, onChangePaidBy] = useState<string>(expense.paid_by);
+
     const router = useRouter();
 
     const handleEdit = () => {
-        console.log("Editando " + expense.desc);
+        console.log("EXPENSE ANTES\n" + 
+            JSON.stringify({
+                id: expense.id,
+                desc: desc,
+                amount: amount,
+                paid_by: paidBy,
+            })
+        )
+        let newExpense = {
+                id: expense.id,
+                desc: desc,
+                amount: amount,
+                paid_by: paidBy,
+            };
+        setExpense(newExpense);
+        console.log(`EXPENSE DESPUES\n${expense.desc}`);
     };
 
     useEffect(() => {
@@ -36,11 +55,11 @@ export default function ExpensesEdit() {
         <View style={{ flex: 1, justifyContent: "center", gap: 20, padding: 20 }}>
             <Text style={{ fontSize: 20, fontWeight: "bold" }}>Mi grupo</Text>
             <View key={expense.id} style={{ gap: 5, padding: 10, borderRadius: 10, boxShadow: "0px 5px 10px #CCC", overflow: "hidden" }}>
-                <TextInput>{expense.desc}</TextInput>
-                <TextInput>{expense.amount}</TextInput>
-                <TextInput>{expense.paid_by}</TextInput>
+                <TextInput onChangeText={onChangeDesc} value={desc} />
+                <TextInput onChangeText={onChangeAmount} value={amount} />
+                <TextInput onChangeText={onChangePaidBy} value={paidBy} />
                 <View style={{ width: "100%", flexDirection: "row", justifyContent: "flex-end", gap: 10 }}>
-                    <Button title="Actualizar" onPress={() => handleEdit} />
+                    <Button title="Actualizar" onPress={() => handleEdit()} />
                 </View>
             </View>
 
