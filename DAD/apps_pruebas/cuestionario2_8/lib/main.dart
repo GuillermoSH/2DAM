@@ -26,28 +26,26 @@ class CuentaAtras extends StatefulWidget {
 
 class _CuentaAtrasState extends State<CuentaAtras> {
   int tiempo = 10;
-  late Timer timer;
+  late Timer _timer;
 
   @override
   void initState() {
     super.initState();
-    if (tiempo <= 0) {
-      timer.cancel();
-    }
-    Timer.periodic(
-      Duration(seconds: 1),
-      (timer) {
-        setState(() {
+    Timer.periodic(Duration(seconds: 1), (timer) {
+      setState(() {
+        if (tiempo == 0) {
+          timer.cancel();
+        } else {
           tiempo--;
-        });
-      },
-    );
+        }
+      });
+    });
   }
 
   @override
   void dispose() {
+    _timer.cancel();
     super.dispose();
-    timer.cancel();
   }
 
   @override
