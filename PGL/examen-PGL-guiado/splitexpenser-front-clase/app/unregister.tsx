@@ -3,7 +3,7 @@ import React, { useContext, useState } from "react";
 import { Button, Text, TextInput, View } from "react-native";
 import { AuthContext } from "../context/AuthContext";
 
-export default function Logout() {
+export default function Unregister() {
   const { unregister, token } = useContext(AuthContext);
   const router = useRouter();
   const [username, setUsername] = useState("");
@@ -20,7 +20,7 @@ export default function Logout() {
   };
 
   return (
-    <View style={{ flex: 1, justifyContent: "center", padding: 20 }}>
+    <View style={{ flex: 1, justifyContent: "center", paddingHorizontal: 60 }}>
       <TextInput
         placeholder="Usuario"
         value={username}
