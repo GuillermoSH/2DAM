@@ -38,6 +38,7 @@ class GameController {
 
   double get newHorizontalPosition => random.nextDouble() * 900;
   double get newVerticalPosition => random.nextDouble() * 500;
+  int get pointsGoal => _pointsGoal;
   bool get isTimeFinished => _time == 0;
   bool get isWinner => _points == _pointsGoal;
 
@@ -71,7 +72,7 @@ class _JuegoBotonSaltarinState extends State<JuegoBotonSaltarin> {
     Timer.periodic(Duration(seconds: 1), (Timer? timer) {
       setState(() {
         if (game.isTimeFinished) {
-          timer?.cancel();
+          dispose();
         } else {
           game.time--;
         }
@@ -81,10 +82,10 @@ class _JuegoBotonSaltarinState extends State<JuegoBotonSaltarin> {
 
   void pulsarBoton() {
     setState(() {
-      if (!game.isTimeFinished) {
-        game.isWinner ? timer.cancel() : game.moveButton();
+      if (game.isWinner || game.isTimeFinished) {
+        if (timer.isActive) dispose();
       } else {
-        timer.cancel();
+        game.moveButton();
       }
     });
   }
@@ -103,8 +104,8 @@ class _JuegoBotonSaltarinState extends State<JuegoBotonSaltarin> {
         children: [
           // Información del juego
           Positioned(
-            top: 30,
-            left: 20,
+            top: 60,
+            left: 80,
             child: Text(
               'Tiempo: ${game.time}  |  Puntos: ${game.points}',
               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -125,7 +126,11 @@ class _JuegoBotonSaltarinState extends State<JuegoBotonSaltarin> {
             top: 30,
             left: 20,
             child: Text(
-              ((game.isTimeFinished && !game.isWinner) ? 'Se te ha acabado el tiempo' : (game.isWinner && !game.isTimeFinished) ? 'Has ganado' : 'SIGUEEE!!'),
+              ((game.isTimeFinished && !game.isWinner)
+                  ? 'Se te ha acabado el tiempo'
+                  : (game.isWinner && !game.isTimeFinished)
+                  ? 'Has ganado'
+                  : '¡Corre, pulsa el botón al menos ${game.pointsGoal} veces antes de que acabe el tiempo!'),
               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
           ),
