@@ -32,6 +32,7 @@
 		<java.version>17</java.version>
 		<openapi.version>2.0.2</openapi.version>
 		<org.mapstruct.version>1.6.3</org.mapstruct.version>
+		<cxf-spring-boot-starter-jaxws.version>4.1.4</cxf-spring-boot-starter-jaxws.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -61,6 +62,15 @@
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
 			<version>${openapi.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-spring-boot-starter-jaxws</artifactId>
+			<version>${cxf-spring-boot-starter-jaxws.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.xml.bind</groupId>
+			<artifactId>jakarta.xml.bind-api</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.mapstruct</groupId>

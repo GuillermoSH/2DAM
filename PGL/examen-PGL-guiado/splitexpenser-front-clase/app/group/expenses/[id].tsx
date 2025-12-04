@@ -25,22 +25,13 @@ export default function ExpensesEdit() {
     const router = useRouter();
 
     const handleEdit = () => {
-        console.log("EXPENSE ANTES\n" + 
-            JSON.stringify({
-                id: expense.id,
-                desc: desc,
-                amount: amount,
-                paid_by: paidBy,
-            })
-        )
         let newExpense = {
                 id: expense.id,
                 desc: desc,
                 amount: amount,
                 paid_by: paidBy,
-            };
+            };-
         setExpense(newExpense);
-        console.log(`EXPENSE DESPUES\n${expense.desc}`);
     };
 
     useEffect(() => {
@@ -54,9 +45,12 @@ export default function ExpensesEdit() {
     return (
         <View style={{ flex: 1, justifyContent: "center", gap: 20, padding: 20 }}>
             <Text style={{ fontSize: 20, fontWeight: "bold" }}>Mi grupo</Text>
-            <View key={expense.id} style={{ gap: 5, padding: 10, borderRadius: 10, boxShadow: "0px 5px 10px #CCC", overflow: "hidden" }}>
-                <TextInput onChangeText={onChangeDesc} value={desc} />
+            <View key={expense.id} style={{ padding: 10, borderRadius: 10, boxShadow: "0px 5px 10px #CCC", overflow: "hidden" }}>
+                <Text style={{fontWeight: "700"}}>{"Descripcion:"}</Text>
+                <TextInput style={{marginBottom: 5}} onChangeText={onChangeDesc} value={desc} />
+                <Text style={{fontWeight: "700"}}>{"Cantidad:"}</Text>
                 <TextInput onChangeText={onChangeAmount} value={amount} />
+                <Text style={{fontWeight: "700"}}>{"Metodo de pago:"}</Text>
                 <TextInput onChangeText={onChangePaidBy} value={paidBy} />
                 <View style={{ width: "100%", flexDirection: "row", justifyContent: "flex-end", gap: 10 }}>
                     <Button title="Actualizar" onPress={() => handleEdit()} />
