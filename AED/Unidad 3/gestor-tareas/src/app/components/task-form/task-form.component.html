@@ -1,0 +1,8 @@
+<h3>Nueva tarea</h3>
+
+<p *ngIf="error" style="color: red">{{ error }}</p>
+
+<input [(ngModel)]="titulo" placeholder="Título" />
+<input [(ngModel)]="descripcion" placeholder="Descripción" />
+
+<button (click)="enviar()" [disabled]="titulo.trim().length === 0">Crear</button>
