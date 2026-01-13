@@ -8,8 +8,13 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
+<<<<<<< HEAD
     date = "2026-01-04T11:57:08+0000",
     comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.44.0.v20251118-1623, environment: Java 21.0.9 (Eclipse Adoptium)"
+=======
+    date = "2025-12-16T20:23:30+0000",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.15 (Ubuntu)"
+>>>>>>> 56ffff5ff4dcc3ed68ba19e8e338a96f0e8a8a89
 )
 public class TareaMapperImpl implements TareaMapper {
 

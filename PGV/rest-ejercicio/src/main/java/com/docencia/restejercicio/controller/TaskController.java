@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/v1/tasks")
+@RequestMapping("/api/tasks")
 @Tag(name = "Tareas", description = "Operaciones sobre tareas")
 public class TaskController {
     private TaskService service;

@@ -1,0 +1,17 @@
+<h2>Gestor de tareas</h2>
+
+<app-task-form (crear)="crear($event)"></app-task-form>
+
+<p *ngIf="cargando">Cargando...</p>
+<p *ngIf="error" style="color: red">{{ error }}</p>
+
+<p *ngIf="!cargando && tareas.length === 0">No hay tareas.</p>
+
+<ul>
+  <li *ngFor="let t of tareas; trackBy: trackById">
+    <input type="checkbox" [checked]="t.completada" (change)="toggle(t)" />
+    <strong>{{ t.titulo }}</strong>
+    <span *ngIf="t.descripcion"> — {{ t.descripcion }}</span>
+    <button (click)="borrar(t.id)">Borrar</button>
+  </li>
+</ul>

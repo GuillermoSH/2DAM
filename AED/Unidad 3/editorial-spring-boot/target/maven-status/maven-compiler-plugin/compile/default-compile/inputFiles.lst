@@ -1,0 +1,16 @@
+/home/dam/Descargas/editorial-spring-boot/src/main/java/com/docencia/aed/EditorialApplication.java
+/home/dam/Descargas/editorial-spring-boot/src/main/java/com/docencia/aed/controller/AuthorController.java
+/home/dam/Descargas/editorial-spring-boot/src/main/java/com/docencia/aed/controller/BookController.java
+/home/dam/Descargas/editorial-spring-boot/src/main/java/com/docencia/aed/controller/PublisherController.java
+/home/dam/Descargas/editorial-spring-boot/src/main/java/com/docencia/aed/entity/Author.java
+/home/dam/Descargas/editorial-spring-boot/src/main/java/com/docencia/aed/entity/Book.java
+/home/dam/Descargas/editorial-spring-boot/src/main/java/com/docencia/aed/entity/Publisher.java
+/home/dam/Descargas/editorial-spring-boot/src/main/java/com/docencia/aed/repository/AuthorRepository.java
+/home/dam/Descargas/editorial-spring-boot/src/main/java/com/docencia/aed/repository/BookRepository.java
+/home/dam/Descargas/editorial-spring-boot/src/main/java/com/docencia/aed/repository/PublisherRepository.java
+/home/dam/Descargas/editorial-spring-boot/src/main/java/com/docencia/aed/service/IAuthorService.java
+/home/dam/Descargas/editorial-spring-boot/src/main/java/com/docencia/aed/service/IBookService.java
+/home/dam/Descargas/editorial-spring-boot/src/main/java/com/docencia/aed/service/IPublisherService.java
+/home/dam/Descargas/editorial-spring-boot/src/main/java/com/docencia/aed/service/impl/AuthorService.java
+/home/dam/Descargas/editorial-spring-boot/src/main/java/com/docencia/aed/service/impl/BookService.java
+/home/dam/Descargas/editorial-spring-boot/src/main/java/com/docencia/aed/service/impl/PublisherService.java
