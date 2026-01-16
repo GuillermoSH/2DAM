@@ -4,8 +4,8 @@ import { NewTask, Task } from '../models/task.model';
 @Injectable({ providedIn: 'root' })
 export class TasksService {
   private tasks: Task[] = [
-    { id: 1, titulo: 'Instalar Angular', descripcion: 'CLI + Node', completada: false },
-    { id: 2, titulo: 'Crear primera página', completada: true },
+    { id: 1, title: 'Instalar Angular', description: 'CLI + Node', completed: false },
+    { id: 2, title: 'Crear primera página', completed: true },
   ];
   private nextId = 3;
 

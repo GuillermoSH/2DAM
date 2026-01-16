@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TasksService } from '../../services/tasks.service';
+import { TasksApiService } from '../../services/tasks-api.service';
+import { Task } from '../../models/task.model';
 
 @Component({
   selector: 'app-task-new',
@@ -11,24 +13,34 @@ import { TasksService } from '../../services/tasks.service';
   styleUrl: './task-new.component.css',
 })
 export class TaskNewComponent {
-  constructor(
-    private fb: FormBuilder,
-    private tasks: TasksService,
-    private router: Router
-  ) {}
+  constructor(public tasksService: TasksApiService) { }
+  
+  private fb = inject(FormBuilder);
+  private tasks: Task[] = [];
+  private router = inject(Router);
 
-  form = this.fb.group({
-    titulo: ['', [Validators.required, Validators.minLength(3)]],
-    descripcion: [''],
-    completada: [false],
+  ngOnInit() {
+    this.tasksService.list().subscribe((tasks) => this.tasks = tasks);
+  }
+
+  form = this.fb.nonNullable.group({
+    title: this.fb.nonNullable.control('', [Validators.required, Validators.minLength(3)]),
+    description: this.fb.nonNullable.control(''),
+    completed: this.fb.nonNullable.control(false),
   });
 
   save() {
     if (this.form.invalid) {
+      console.warn('form inválido', this.form.errors, this.form.value);
       this.form.markAllAsTouched();
       return;
     }
-    this.tasks.add(this.form.getRawValue());
+    this.tasksService.create(this.form.getRawValue()).subscribe((newTask) => this.tasks.push(newTask));
+    console.log(this.tasks)
+    //this.router.navigateByUrl('/tareas');
+  }
+
+  cancel() {
     this.router.navigateByUrl('/tareas');
   }
 }

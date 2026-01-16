@@ -1,15 +1,15 @@
 <section class="card">
   <h2>Lista de tareas</h2>
 
-  @if (tasksService.list().length === 0) {
+  @if (taskList.length === 0) {
     <p>No hay tareas todavía.</p>
   } @else {
     <ul class="list">
-      @for (t of tasksService.list(); track t.id) {
+      @for (t of taskList; track t.id) {
         <li class="item">
           <div>
-            <strong>{{ t.titulo }}</strong>
-            @if (t.descripcion) { <div class="muted">{{ t.descripcion }}</div> }
+            <strong>{{ t.title }}</strong>
+            @if (t.description) { <div class="muted">{{ t.description }}</div> }
           </div>
 
           <button class="btn btn-ghost" (click)="remove(t.id)">Eliminar</button>

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { TasksService } from '../../services/tasks.service';
+import { TasksApiService } from '../../services/tasks-api.service';
+import { Task } from '../../models/task.model';
 
 @Component({
   selector: 'app-tasks',
@@ -8,9 +9,19 @@ import { TasksService } from '../../services/tasks.service';
   styleUrl: './tasks.component.css',
 })
 export class TasksComponent {
-  constructor(public tasksService: TasksService) {}
+  constructor(public tasksService: TasksApiService) { }
+
+  ngOnInit() {
+    this.list();
+  }
+
+  taskList: Task[] = [];
 
   remove(id: number) {
-    this.tasksService.remove(id);
+    this.tasksService.remove(id).subscribe();
+  }
+
+  list(): void {
+    this.tasksService.list().subscribe((taskList) => this.taskList = taskList);
   }
 }
