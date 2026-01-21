@@ -1,8 +1,8 @@
 export interface Task {
   id: number;
-  title: string;
-  description?: string;
-  completed: boolean;
+  titulo: string;
+  descripcion?: string;
+  completada: boolean;
 }
 
 export type NewTask = Omit<Task, 'id'>;

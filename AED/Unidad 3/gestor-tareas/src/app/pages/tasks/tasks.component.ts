@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { TasksApiService } from '../../services/tasks-api.service';
+import { Component, OnInit } from '@angular/core';
 import { Task } from '../../models/task.model';
+import { TasksApiService } from '../../services/tasks-api.service';
 
 @Component({
   selector: 'app-tasks',
@@ -8,20 +8,40 @@ import { Task } from '../../models/task.model';
   templateUrl: './tasks.component.html',
   styleUrl: './tasks.component.css',
 })
-export class TasksComponent {
-  constructor(public tasksService: TasksApiService) { }
+export class TasksComponent implements OnInit {
+  tasks: Task[] = [];
+  errorMsg: string | null = null;
+  loading = false;
 
-  ngOnInit() {
-    this.list();
+  constructor(public api: TasksApiService) {}
+
+  ngOnInit(): void {
+    this.load();
   }
 
-  taskList: Task[] = [];
+  load() {
+    this.loading = true;
+    this.errorMsg = null;
+
+    this.api.list().subscribe({
+      next: data => {
+        this.tasks = data;
+        this.loading = false;
+      },
+      error: (e: Error) => {
+        this.tasks = [];
+        this.errorMsg = e.message;
+        this.loading = false;
+      }
+    });
+  }
 
   remove(id: number) {
-    this.tasksService.remove(id).subscribe();
-  }
+    this.errorMsg = null;
 
-  list(): void {
-    this.tasksService.list().subscribe((taskList) => this.taskList = taskList);
+    this.api.remove(id).subscribe({
+      next: () => this.load(),
+      error: (e: Error) => this.errorMsg = e.message
+    });
   }
 }
