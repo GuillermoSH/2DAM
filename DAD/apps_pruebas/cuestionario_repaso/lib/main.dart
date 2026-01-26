@@ -1,61 +1,76 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-void main() => runApp(const App());
+void main() => runApp(const MyApp());
 
-/// PROVIDER MÁS SIMPLE POSIBLE
-class MoodModel extends ChangeNotifier {
-  String emoji = '😄';
-
-  void feliz() {
-    emoji = '😄';
-    notifyListeners();
-  }
-
-  void enfadado() {
-    emoji = '😡';
-    notifyListeners();
-  }
-}
-
-class App extends StatelessWidget {
-  const App({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => MoodModel(),
-      child: const MaterialApp(home: HomePage()),
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: NumberCheckerPage(),
     );
   }
 }
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class NumberCheckerPage extends StatefulWidget {
+  const NumberCheckerPage({super.key});
+
+  @override
+  State createState() => _NumberCheckerPageState();
+}
+
+class _NumberCheckerPageState extends State {
+  String result = '';
+  String input = '';
+  bool isValid = false;
+  String errorText = '';
+
+  void checkNumber(String input) {
+    setState(() {
+      this.input = input;
+      isValid = int.tryParse(input) != null;
+
+      errorText = (input == '') ? 'Escribe un numero (ej. 123)' : 'Solo numeros, sin letras ni espacios';
+    });
+  }
+
+  void submitNumber() {
+    setState(() {
+      errorText = '';
+      result = isValid ? input : '';
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    final model = context.watch<MoodModel>();
     return Scaffold(
-      appBar: AppBar(title: const Text('Mini Provider')),
-
-      body: Center(
+      appBar: AppBar(title: const Text('Comprobar número')),
+      body: Padding(
+        padding: const EdgeInsets.all(20),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
           children: [
-            Text(model.emoji, style: const TextStyle(fontSize: 80)),
-
+            TextFormField(
+              onChanged: (input) => checkNumber(input),
+              decoration: InputDecoration(
+                labelText: 'Introduce un número',
+                errorText: isValid
+                    ? null
+                    : errorText,
+                helperText: 'Ejemplo: 123',
+              ),
+            ),
             const SizedBox(height: 20),
 
             ElevatedButton(
-              onPressed: () => model.feliz(),
-              child: const Text('Feliz'),
+              onPressed: isValid ? submitNumber : null,
+              child: const Text('Comprobar'),
             ),
 
-            ElevatedButton(
-              onPressed: () => model.enfadado(),
-              child: const Text('Enfadado'),
-            ),
+            const SizedBox(height: 20),
+            if (result != '') Text('Numero correcto: $result'),
           ],
         ),
       ),
