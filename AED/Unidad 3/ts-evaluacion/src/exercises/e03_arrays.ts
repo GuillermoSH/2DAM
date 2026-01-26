@@ -5,16 +5,22 @@ import { Task } from "../models";
  */
 
 export function pendingTasks(tasks: Task[]): Task[] {
-  // retorna nuevas tareas con completed=false
-  throw new Error("TODO");
+  return tasks.filter(task => !task.completed);
 }
 
 export function titlesSorted(tasks: Task[]): string[] {
-  // devuelve títulos ordenados alfabéticamente (localeCompare), sin mutar tasks
-  throw new Error("TODO");
+  return tasks
+    .map(task => task.title)
+    .sort((a, b) => a.localeCompare(b));
 }
 
 export function completionPercent(tasks: Task[]): number {
-  // % completadas 0..100 redondeado; si vacío => 0
-  throw new Error("TODO");
+  if (tasks.length === 0) return 0;
+
+  const completedCount = tasks.reduce(
+    (acc, task) => (task.completed ? acc + 1 : acc),
+    0
+  );
+
+  return Math.round((completedCount / tasks.length) * 100);
 }

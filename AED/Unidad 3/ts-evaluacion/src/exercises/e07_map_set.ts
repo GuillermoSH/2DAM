@@ -5,16 +5,17 @@ import { Role, Task } from "../models";
  */
 
 export function indexTasksById(tasks: Task[]): Map<string, Task> {
-  // key=id, value=task (última gana si repetido)
-  throw new Error("TODO");
+  const taskMap = new Map<string, Task>();
+  tasks.forEach((task) => taskMap.set(task.id, task));
+  return taskMap;
 }
 
 export function uniqueRoles(roles: Role[]): Set<Role> {
-  // devuelve Set sin duplicados
-  throw new Error("TODO");
+  return new Set(roles);
 }
 
 export function touchSession(sessions: Map<string, Date>, token: string, now: Date): Date | undefined {
-  // devuelve fecha previa si existía y actualiza token->now
-  throw new Error("TODO");
+  const previousDate = sessions.get(token);
+  sessions.set(token, now);
+  return previousDate;
 }
